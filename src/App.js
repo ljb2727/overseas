@@ -1,13 +1,17 @@
+import { ThemeProvider } from "@mui/material/styles";
 import { Routes, Route, Link } from "react-router-dom";
+import theme from "theme";
 import Main from "./routes/Main";
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Main />} />
-      </Routes>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Main />} />
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
 
