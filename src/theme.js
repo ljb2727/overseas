@@ -3,20 +3,20 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#436ae3",
       main: "#333333",
-      contrastText: "#fff",
     },
-    secondary: {
-      main: "#9c27b0",
-      contrastText: "#fff",
-    },
-    green: "#36ae37",
 
-    gray: {
-      light: "#f8f8fa",
+    green: {
+      main: "#36ae37",
+      contrastText: "#fff",
     },
-    red: "#ff0000",
+
+    red: {
+      main: "#ff0000",
+    },
+    blue: {
+      main: "#436ae3",
+    },
     common: {
       color: "#2d2d2d",
       borderColor: "#e0e0e0",
@@ -33,10 +33,9 @@ const theme = createTheme({
         // Name of the slot
         root: {
           fontSize: "1rem",
-          color: "#2d2d2d",
+
           borderColor: "#e0e0e0",
           "&:hover": {
-            color: "#2d2d2d",
             borderColor: "#e0e0e0",
             background: "#ffffff",
           },

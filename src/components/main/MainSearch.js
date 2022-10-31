@@ -5,6 +5,9 @@ import { TextField, Box, Autocomplete, Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+
 export default function Search() {
   const { offer } = useSelector((state) => state);
   const navigate = useNavigate();
@@ -22,6 +25,7 @@ export default function Search() {
         onSubmit={(e) => {
           e.preventDefault();
         }}
+        sx={{ mt: 1 }}
       >
         <Autocomplete
           sx={{
@@ -34,7 +38,19 @@ export default function Search() {
           fullWidth={true}
           filterOptions={filterOptions}
           renderInput={(params) => (
-            <TextField {...params} label="원하는 회원권 검색" size="small" />
+            <TextField
+              {...params}
+              label="원하는 회원권 검색"
+              size="small"
+              InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
           )}
           noOptionsText="검색된 회원권이 없습니다."
           getOptionLabel={(option) => option.label}
