@@ -1,8 +1,8 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import offer_list from "store/offer_list";
+import offerList from "store/offerList";
 let offer = createSlice({
-  name: "offer",
-  initialState: offer_list,
+  name: "offerList",
+  initialState: offerList,
 });
 export default configureStore({
   reducer: {

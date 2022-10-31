@@ -51,7 +51,7 @@ export default function MainSlider() {
               <Chip label="일본 오이타" color="primary" size="small" sx={{}} />
             </div>
             <Typography variant="body1">도쿄 윈저파크 컨트리클럽</Typography>
-            <Typography variant="body1" color="blue">
+            <Typography variant="body1" color="text.blue">
               1,2000만원~
             </Typography>
           </Stack>

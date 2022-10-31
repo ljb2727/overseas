@@ -8,15 +8,25 @@ const theme = createTheme({
 
     green: {
       main: "#36ae37",
-      contrastText: "#fff",
+      contrastText: "#ffffff",
     },
 
     red: {
       main: "#ff0000",
+      contrastText: "#ffffff",
     },
+
     blue: {
       main: "#436ae3",
+      contrastText: "#ffffff",
     },
+
+    text: {
+      blue: "#436ae3",
+      green: "#36ae37",
+      red: "#ff0000",
+    },
+
     common: {
       color: "#2d2d2d",
       borderColor: "#e0e0e0",
@@ -28,18 +38,28 @@ const theme = createTheme({
       defaultProps: {
         variant: "outlined",
         disableRipple: true,
+        disableElevation: true,
       },
       styleOverrides: {
         // Name of the slot
         root: {
           fontSize: "1rem",
-
-          borderColor: "#e0e0e0",
-          "&:hover": {
-            borderColor: "#e0e0e0",
-            background: "#ffffff",
-          },
         },
+      },
+    },
+
+    MuiChip: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          borderRadius: "4px",
+        },
+      },
+    },
+
+    MuiTab: {
+      defaultProps: {
+        disableRipple: true,
       },
     },
 

@@ -1,7 +1,16 @@
 body {
   margin: 0;
 }
-
+#container {
+  margin: 8px 8px 0;
+  padding: 0;
+  width: auto;
+  box-sizing: border-box;
+}
 .section:not(:first-child) {
   margin-top: 16px;
+}
+
+.MuiTabs-scrollButtons.Mui-disabled {
+  opacity: 0.3 !important;
 }
