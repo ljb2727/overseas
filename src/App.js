@@ -6,6 +6,7 @@ import "./scss/style.scss";
 
 import Main from "routes/Main";
 import List from "routes/List";
+import Detail from "routes/Detail";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/list/:type" element={<List />} />
+          <Route path="/detail/:id" element={<Detail />} />
         </Routes>
       </ThemeProvider>
     </>

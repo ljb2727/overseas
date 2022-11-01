@@ -2,20 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { Tabs, Tab, Box, styled, Chip, Stack, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function List() {
-  const { offer } = useSelector((state) => state);
+  const { offer, tabArray } = useSelector((state) => state);
+  const { mainTabArray, subTabArray } = tabArray;
   const [copyOffer, setCopyOffer] = useState([...offer]);
-  const [mainTab, setMainTab] = useState("분양매물");
-  const [subTab, setSubTab] = useState("일본");
-
+  const [mainTab, setMainTab] = useState(mainTabArray[0]);
+  const [subTab, setSubTab] = useState(subTabArray[0]);
   const params = useParams();
+
+  const navigate = useNavigate();
   useEffect(() => {
     if (params.type === "type1") {
-      setMainTab("분양매물");
+      setMainTab(mainTabArray[0]);
     } else {
-      setMainTab("개인매물");
+      setMainTab(mainTabArray[1]);
     }
   }, []);
   useEffect(() => {
@@ -24,35 +26,11 @@ export default function List() {
   }, [mainTab, subTab]);
 
   const filterItem = (mainTab, subTab) => {
-    if (mainTab === "개인매물") {
-      setCopyOffer(offer.filter((el) => el.personal));
-    } else if (mainTab === "분양매물") {
-      setCopyOffer(offer.filter((el) => !el.personal));
-    }
-
-    switch (subTab) {
-      case "일본":
-        console.log(`@@@${mainTab} ${subTab}`);
-        console.log(copyOffer);
-        break;
-      case "중국":
-        console.log("df");
-        break;
-      case "태국":
-        console.log("df");
-        break;
-      case "필리핀":
-        console.log("df");
-        break;
-      case "베트남":
-        console.log("df");
-        break;
-      case "말레이시아":
-        console.log("df");
-        break;
-
-      default:
-        break;
+    console.log(`@@@${mainTab} ${subTab}`);
+    if (mainTab === mainTabArray[0]) {
+      setCopyOffer(offer.filter((el) => !el.personal && el.country == subTab));
+    } else {
+      setCopyOffer(offer.filter((el) => el.personal && el.country == subTab));
     }
   };
 
@@ -112,7 +90,7 @@ export default function List() {
     return (
       <StyleItem data-personal={personal} data-id={id}>
         <Stack direction="row" spacing={1}>
-          <Box>
+          <Box onClick={() => navigate(`/detail/${id}`)}>
             <Box className="img_box">
               <p className="count">{index + 1}</p>
               <img src={thumbnail} alt={label} />
@@ -135,7 +113,7 @@ export default function List() {
                 {`${price}만원~`}
               </Typography>
 
-              {personal ? "개인 매물" : "분양 매물"}
+              {personal ? mainTabArray[1] : mainTabArray[0]}
             </Stack>
           </Box>
         </Stack>
@@ -146,8 +124,8 @@ export default function List() {
   return (
     <>
       <Tabs value={mainTab} variant="fullWidth" onChange={mainChange}>
-        <Tab value="분양매물" label="분양 매물" />
-        <Tab value="개인매물" label="개인 매물" />
+        <Tab value={mainTabArray[0]} label={mainTabArray[0]} />
+        <Tab value={mainTabArray[1]} label={mainTabArray[1]} />
       </Tabs>
       <Tabs
         value={subTab}
@@ -166,31 +144,39 @@ export default function List() {
           },
         }}
       >
-        <Tab value="일본" label="일본" />
-        <Tab value="중국" label="중국" />
-        <Tab value="태국" label="태국" />
-        <Tab value="필리핀" label="필리핀" />
-        <Tab value="베트남" label="베트남" />
-        <Tab value="말레이시아" label="말레이시아" />
-        <Tab value="테스트1" label="테스트1" />
-        <Tab value="테스트2" label="테스트2" />
+        {subTabArray.map((el, index) => {
+          return <Tab value={el} label={el} key={index} />;
+        })}
       </Tabs>
 
-      {copyOffer.map((el, index) => {
-        return (
-          <Item
-            index={index}
-            key={el.id}
-            id={el.id}
-            label={el.label}
-            price={el.price}
-            personal={el.personal}
-            country={el.country}
-            region={el.region}
-            thumbnail={el.thumbnail}
-          />
-        );
-      })}
+      {copyOffer.length ? (
+        copyOffer.map((el, index) => {
+          return (
+            <Item
+              index={index}
+              key={el.id}
+              id={el.id}
+              label={el.label}
+              price={el.price}
+              personal={el.personal}
+              country={el.country}
+              region={el.region}
+              thumbnail={el.thumbnail}
+            />
+          );
+        })
+      ) : (
+        <Box
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+          }}
+        >
+          매물이 없습니다.
+        </Box>
+      )}
     </>
   );
 }

@@ -29,8 +29,8 @@ export default function MainSlider() {
   return (
     <>
       <CusSwiper
-        spaceBetween={30}
-        centeredSlides={true}
+        slidesPerView={1.125}
+        spaceBetween={10}
         loop={true}
         // autoplay={{
         //   delay: 15000,

@@ -2,14 +2,30 @@ import Hangul from "hangul-js";
 const offerList = [
   {
     id: "1",
-    label: "도쿄 윈저파크 컨트리클럽",
+    label: "도쿄11 윈저파크 컨트리클럽",
     price: 1200,
-    personal: false,
+    personal: true,
     country: "일본",
     region: "이바라키",
-    img: "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    img: [
+      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
+    date: "2022.10.19",
+    info: {
+      골프장정보: `1. 규모 : 18홀 72파 6,999야드 등<br/>
+        2. 부대시설 : 골프텔, 드라이빙레인지, 레스토랑 등<br/>
+        3. 위치 : 나리타 공항에서 1시간 10분 등
+        `,
+      회원권정보: `1. 입회금 (VAT포함)<br/>
+          (1) GOLD (기명1인+무기명1인) 880만원<br/>
+          (2) VIP (기명1인+무기명3인) 1,320만원<br/>
+          (3) VVIP (기명2인+무기명6인) 1,870만원<br/>
+        2. 특징 : 평생 회원, 연회비 없음, 양도/양수 가능`,
+      등록자: ["김케이", "010-1234-5678"],
+    },
   },
   {
     id: "e1",
@@ -18,9 +34,13 @@ const offerList = [
     personal: false,
     country: "중국",
     region: "중국1",
-    img: "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    img: [
+      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
+    date: "2022.10.19",
   },
   {
     id: "e2",
@@ -29,9 +49,12 @@ const offerList = [
     personal: false,
     country: "태국",
     region: "태국 어쩌구",
-    img: "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    img: [
+      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
+    date: "2022.10.19",
   },
   {
     id: "e3",
@@ -40,9 +63,13 @@ const offerList = [
     personal: false,
     country: "필리핀",
     region: "ㅇㄹㄹ",
-    img: "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    img: [
+      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
+    date: "2022.10.19",
   },
   {
     id: "e4",
@@ -51,9 +78,12 @@ const offerList = [
     personal: true,
     country: "베트남",
     region: "베 ㅔ",
-    img: "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    img: [
+      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
+    date: "2022.10.19",
   },
   {
     id: "2",
@@ -62,9 +92,12 @@ const offerList = [
     personal: false,
     country: "일본",
     region: "오이타",
-    img: "https://image.xgolf.com/file/2022/1021/2022102153058641leesy.jpg/dims/resize/311x161",
+    img: [
+      "https://image.xgolf.com/file/2022/1021/2022102153058641leesy.jpg/dims/resize/311x161",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0326/20140326171854602098.jpg/dims/resize/330x330",
+    date: "2022.10.19",
   },
   {
     id: "a2",
@@ -73,9 +106,12 @@ const offerList = [
     personal: true,
     country: "중국",
     region: "오이타",
-    img: "https://image.xgolf.com/file/2022/1021/2022102153058641leesy.jpg/dims/resize/311x161",
+    img: [
+      "https://image.xgolf.com/file/2022/1021/2022102153058641leesy.jpg/dims/resize/311x161",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0326/20140326171854602098.jpg/dims/resize/330x330",
+    date: "2022.10.19",
   },
   {
     id: "a3",
@@ -84,9 +120,12 @@ const offerList = [
     personal: false,
     country: "태국",
     region: "오이타",
-    img: "https://image.xgolf.com/file/2022/1021/2022102153058641leesy.jpg/dims/resize/311x161",
+    img: [
+      "https://image.xgolf.com/file/2022/1021/2022102153058641leesy.jpg/dims/resize/311x161",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0326/20140326171854602098.jpg/dims/resize/330x330",
+    date: "2022.10.19",
   },
   {
     id: "3",
@@ -95,9 +134,12 @@ const offerList = [
     personal: false,
     country: "일본",
     region: "사이타마",
-    img: "https://image.xgolf.com/file/2022/0926/2022092632412461leesy.jpg/dims/resize/311x161",
+    img: [
+      "https://image.xgolf.com/file/2022/0926/2022092632412461leesy.jpg/dims/resize/311x161",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    date: "2022.10.19",
   },
   {
     id: "4",
@@ -106,9 +148,12 @@ const offerList = [
     personal: true,
     country: "일본",
     region: "가고시마",
-    img: "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
+    img: [
+      "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+    date: "2022.10.19",
   },
   {
     id: "5",
@@ -117,9 +162,12 @@ const offerList = [
     personal: true,
     country: "일본",
     region: "후쿠오카",
-    img: "https://image.xgolf.com/file/2014/0326/20140326171854602098.jpg/dims/resize/330x330",
+    img: [
+      "https://image.xgolf.com/file/2014/0326/20140326171854602098.jpg/dims/resize/330x330",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2022/1021/2022102153058641leesy.jpg/dims/resize/311x161",
+    date: "2022.10.19",
   },
   {
     id: "6",
@@ -128,9 +176,12 @@ const offerList = [
     personal: true,
     country: "일본",
     region: "후쿠오카",
-    img: "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    img: [
+      "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2022/0926/2022092632412461leesy.jpg/dims/resize/311x161",
+    date: "2022.10.19",
   },
   {
     id: "7",
@@ -139,9 +190,12 @@ const offerList = [
     personal: true,
     country: "중국",
     region: "머시기",
-    img: "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    img: [
+      "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2022/0926/2022092632412461leesy.jpg/dims/resize/311x161",
+    date: "2022.10.19",
   },
   {
     id: "8",
@@ -150,9 +204,12 @@ const offerList = [
     personal: true,
     country: "태국",
     region: "사와디카",
-    img: "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    img: [
+      "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2022/0926/2022092632412461leesy.jpg/dims/resize/311x161",
+    date: "2022.10.19",
   },
   {
     id: "9",
@@ -161,9 +218,12 @@ const offerList = [
     personal: true,
     country: "필리핀",
     region: "고고",
-    img: "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    img: [
+      "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2022/0926/2022092632412461leesy.jpg/dims/resize/311x161",
+    date: "2022.10.19",
   },
   {
     id: "10",
@@ -172,9 +232,12 @@ const offerList = [
     personal: true,
     country: "말레이시아",
     region: "ㅇㄹㄹ",
-    img: "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    img: [
+      "https://image.xgolf.com/file/2016/1111/20161111095054627090.jpg/dims/resize/330x330",
+    ],
     thumbnail:
       "https://image.xgolf.com/file/2022/0926/2022092632412461leesy.jpg/dims/resize/311x161",
+    date: "2022.10.19",
   },
 ];
 

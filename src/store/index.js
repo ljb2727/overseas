@@ -4,8 +4,27 @@ let offer = createSlice({
   name: "offerList",
   initialState: offerList,
 });
+
+let tabArray = createSlice({
+  name: "tabArray",
+  initialState: {
+    mainTabArray: ["분양매물", "개인매물"],
+    subTabArray: [
+      "일본",
+      "중국",
+      "태국",
+      "필리핀",
+      "베트남",
+      "말레이시아",
+      "테스트1",
+      "테스트2",
+    ],
+  },
+});
+
 export default configureStore({
   reducer: {
     offer: offer.reducer,
+    tabArray: tabArray.reducer,
   },
 });
