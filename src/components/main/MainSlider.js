@@ -7,6 +7,7 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import { styled } from "@mui/material/styles";
 
 import { Chip, Typography, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CusSwiper = styled(Swiper)`
   background-color: white;
@@ -26,6 +27,7 @@ const CusSwiper = styled(Swiper)`
 `;
 
 export default function MainSlider() {
+  const navigation = useNavigate();
   return (
     <>
       <CusSwiper
@@ -39,7 +41,7 @@ export default function MainSlider() {
         modules={[Autoplay]}
         className="mySwiper"
       >
-        <SwiperSlide>
+        <SwiperSlide onClick={() => navigation("/detail/1")}>
           <div className="img">
             <img
               src="https://image.xgolf.com/file/2022/1021/2022102152988021leesy.jpg/dims/resize/311x161"

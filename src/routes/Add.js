@@ -2,21 +2,23 @@ import * as React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import CommentIcon from "@mui/icons-material/Comment";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 import MenuItem from "@mui/material/MenuItem";
 import { Divider, Grid, TextField, InputAdornment } from "@mui/material";
 import SubTitle from "components/common/SubTitle.js";
+import ImageUpload from "components/Add/ImageUpload";
 
 export default function GutterlessList() {
   const [age, setAge] = React.useState("");
@@ -25,8 +27,33 @@ export default function GutterlessList() {
     setAge(event.target.value);
   };
   return (
-    <Box component="form">
-      <List dense sx={{ px: 1 }}>
+    <Box
+      component="form"
+      sx={{
+        ".no_basis": {
+          flexBasis: "0 !important",
+        },
+        "& .MuiListItemText-root": {
+          flex: "0 0 20vw",
+        },
+        "& .MuiListItem-root": {
+          justifyContent: "space-between",
+          gap: "10px",
+        },
+        "& .MuiListItemText-root + .MuiBox-root": {
+          flexGrow: "1",
+        },
+        "& .MuiFormGroup-root": {
+          justifyContent: "end",
+        },
+      }}
+    >
+      <List
+        dense
+        sx={{
+          px: 1,
+        }}
+      >
         <SubTitle>회원권 정보</SubTitle>
         <ListItem disableGutters>
           <ListItemText>
@@ -36,7 +63,7 @@ export default function GutterlessList() {
             </Typography>
           </ListItemText>
           <Box>
-            <RadioGroup row name="radio-type-1">
+            <RadioGroup row name="radio-type-1" defaultValue="a">
               <FormControlLabel
                 value="a"
                 control={<Radio color="green" />}
@@ -91,6 +118,7 @@ export default function GutterlessList() {
           <Box>
             <TextField
               size="small"
+              fullWidth
               placeholder="도시 또는 지역명 입력"
             ></TextField>
           </Box>
@@ -105,6 +133,7 @@ export default function GutterlessList() {
           <Box>
             <TextField
               size="small"
+              fullWidth
               placeholder="골프장명 또는 회원권명 입력"
             ></TextField>
           </Box>
@@ -119,6 +148,7 @@ export default function GutterlessList() {
           <Box>
             <TextField
               size="small"
+              fullWidth
               placeholder="골프장명 또는 회원권명 입력"
             ></TextField>
           </Box>
@@ -133,6 +163,7 @@ export default function GutterlessList() {
           <Box>
             <TextField
               size="small"
+              fullWidth
               placeholder="숫자만 입력. 예) 800, 1500등"
               type="number"
               InputProps={{
@@ -152,7 +183,7 @@ export default function GutterlessList() {
         <ListItem disableGutters>
           <ListItemText>물결표시(~) 여부</ListItemText>
           <Box>
-            <RadioGroup row name="radio-type-2">
+            <RadioGroup row name="radio-type-2" defaultValue="a">
               <FormControlLabel
                 value="a"
                 control={<Radio color="green" />}
@@ -182,7 +213,7 @@ export default function GutterlessList() {
             alignItems: "flex-start",
           }}
         >
-          <ListItemText>회원권 안내</ListItemText>
+          <ListItemText className="no_basis">회원권 안내</ListItemText>
           <TextField
             size="small"
             fullWidth
@@ -205,7 +236,11 @@ export default function GutterlessList() {
         <ListItem disableGutters>
           <ListItemText>업체명</ListItemText>
           <Box>
-            <TextField size="small" placeholder="업체명 입력"></TextField>
+            <TextField
+              size="small"
+              placeholder="업체명 입력"
+              fullWidth
+            ></TextField>
           </Box>
         </ListItem>
         <ListItem disableGutters>
@@ -216,7 +251,11 @@ export default function GutterlessList() {
             </Typography>
           </ListItemText>
           <Box>
-            <TextField size="small" placeholder="이름 입력"></TextField>
+            <TextField
+              size="small"
+              placeholder="이름 입력"
+              fullWidth
+            ></TextField>
           </Box>
         </ListItem>
         <ListItem disableGutters>
@@ -231,6 +270,7 @@ export default function GutterlessList() {
               size="small"
               type="number"
               placeholder="숫자만 입력 예 01012345678"
+              fullWidth
             ></TextField>
           </Box>
         </ListItem>
@@ -247,7 +287,7 @@ export default function GutterlessList() {
             alignItems: "flex-start",
           }}
         >
-          <ListItemText>골프장 소개</ListItemText>
+          <ListItemText className="no_basis">골프장 소개</ListItemText>
           <TextField
             size="small"
             fullWidth
@@ -262,17 +302,62 @@ export default function GutterlessList() {
           ></TextField>
         </ListItem>
 
-        <ListItem disableGutters>
-          <ListItemText>썸네일 이미지 등록</ListItemText>
-          <Box>
-            <TextField
-              size="small"
-              type="number"
-              placeholder="숫자만 입력 예 01012345678"
-            ></TextField>
+        <ListItem
+          disableGutters
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+        >
+          <ListItemText className="no_basis">썸네일 이미지 등록</ListItemText>
+          <Box sx={{ display: "flex" }}>
+            <ImageUpload />
+          </Box>
+        </ListItem>
+
+        <ListItem
+          disableGutters
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+        >
+          <ListItemText className="no_basis">
+            상세 이미지 등록 (최대 5장 가능)
+          </ListItemText>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+            <ImageUpload max="5" />
           </Box>
         </ListItem>
       </List>
+      <Divider />
+
+      <Box sx={{ p: 1 }}>
+        <Typography sx={{ fontSize: 14 }}>
+          ※ XGOLF는 회원권 페이지에서 발생하는 사고 및 해당 게시물 내 회원 간
+          이루어진 거래에 대해서는 어떠한 법적 책임도 지지 않음을 알려드립니다.
+          <br />
+          ※해외 회원권 등록 시 연락처가 노출 됨을 동의 합니다.
+          <br />※ 허위 글,유해광고, 홍보, 상이한 게시물 등으로 등록된 내용은
+          관리자 권한으로 동의 없이 삭제 및 이용이 제한될 수 있습니다.
+        </Typography>
+      </Box>
+
+      <Stack direction="row" spacing={1} sx={{ m: 1 }}>
+        <Button
+          fullWidth
+          variant="contained"
+          color="gray"
+          sx={{ flexBasis: "140px" }}
+        >
+          미리보기
+        </Button>
+        <Button fullWidth color="green" variant="contained">
+          동의 후 등록
+        </Button>
+      </Stack>
     </Box>
   );
 }

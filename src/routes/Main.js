@@ -39,6 +39,7 @@ function Main() {
             variant="contained"
             fullWidth
             color="green"
+            size="large"
             sx={{ mt: 1 }}
             onClick={() => navigate("/add")}
           >
