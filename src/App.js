@@ -7,18 +7,23 @@ import "./scss/style.scss";
 import Main from "routes/Main";
 import List from "routes/List";
 import Detail from "routes/Detail";
+import Add from "routes/Add";
+import { Container } from "@mui/material";
 
 function App() {
   return (
     <>
       <CssBaseline />
-      <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/list/:type" element={<List />} />
-          <Route path="/detail/:id" element={<Detail />} />
-        </Routes>
-      </ThemeProvider>
+      <Container disableGutters maxWidth="sm">
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/list/:type" element={<List />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/Add" element={<Add />} />
+          </Routes>
+        </ThemeProvider>
+      </Container>
     </>
   );
 }

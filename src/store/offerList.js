@@ -87,7 +87,7 @@ const offerList = [
   },
   {
     id: "2",
-    label: "퍼시픽 블루 골프 리조트",
+    label: "퍼시픽 블루 골프 리조트2",
     price: 800,
     personal: false,
     country: "일본",
@@ -171,7 +171,7 @@ const offerList = [
   },
   {
     id: "6",
-    label: "테스트 ",
+    label: "테스트3 ",
     price: 1100,
     personal: true,
     country: "일본",

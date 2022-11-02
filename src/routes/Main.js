@@ -35,7 +35,13 @@ function Main() {
         </Box>
         <Box className="section">
           <SubTitle>회원권 팔기</SubTitle>
-          <Button variant="contained" fullWidth color="green" sx={{ mt: 1 }}>
+          <Button
+            variant="contained"
+            fullWidth
+            color="green"
+            sx={{ mt: 1 }}
+            onClick={() => navigate("/add")}
+          >
             해외 회원권 매물 등록
           </Button>
         </Box>
