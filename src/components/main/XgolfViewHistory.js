@@ -78,7 +78,7 @@ export default function MainSlider() {
                     </div>
                     <Typography variant="body1">{`${el.label}`}</Typography>
                     <Typography variant="body1" color="text.blue">
-                      {`${el.price}만원~`}
+                      {`${el.commaPrice}만원~`}
                     </Typography>
                   </Stack>
                 </SwiperSlide>

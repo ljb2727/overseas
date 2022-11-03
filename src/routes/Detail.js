@@ -35,13 +35,16 @@ export default function Detail() {
       ? localStorage.getItem("xgolfViewHistory")
       : localStorage.setItem("xgolfViewHistory", JSON.stringify([]));
     const array = JSON.parse(localStorage.getItem("xgolfViewHistory"));
-
     const idx = array.findIndex((e) => e === id);
-    console.log(idx);
     if (idx >= 0) {
       array.splice(idx, 1);
     }
     array.unshift(id);
+    console.log(array);
+    if (array.length > 5) {
+      array.pop();
+    }
+
     localStorage.setItem("xgolfViewHistory", JSON.stringify(array));
   }, []);
 
@@ -139,7 +142,7 @@ export default function Detail() {
               {target.label}
             </Typography>
             <Typography variant="body1" color="text.blue">
-              {`${target.price}만원~`}
+              {`${target.commaPrice}만원~`}
             </Typography>
 
             <Stack direction="row" justifyContent="space-between">
