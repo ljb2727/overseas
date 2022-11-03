@@ -1,34 +1,99 @@
-import * as React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-
-import MenuItem from "@mui/material/MenuItem";
-import { Divider, Grid, TextField, InputAdornment } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  MenuItem,
+  Select,
+  Stack,
+  InputLabel,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  Divider,
+  FormControl,
+  Alert,
+  TextField,
+  InputAdornment,
+  Snackbar,
+} from "@mui/material";
 import SubTitle from "components/common/SubTitle.js";
-import ImageUpload from "components/Add/ImageUpload";
+import ImageUpload from "components/add/ImageUpload";
+import Preview from "components/add/Preview";
+import { useSelector } from "react-redux";
 
-export default function GutterlessList() {
-  const [age, setAge] = React.useState("");
+export default function Add() {
+  const [age, setAge] = useState("");
+  const [snackOpen, setSnackOpen] = useState(false);
+
+  const { tabArray } = useSelector((state) => state);
+
+  const formValue = () => {
+    const form = document.getElementById("addForm");
+    const formValue = {
+      구분: form.offerType.value,
+      국가: form.country.value,
+      도시: form.city.value,
+      골프장명: form.offerName.value,
+      입회금: form.offerPrice.value,
+      물결표시: form.priceWave.value,
+      회원권안내: form.offerInfo.value,
+      업체명: form.companyName.value,
+      담당자명: form.userName.value,
+      연락처: form.userPhone.value,
+      골프장소개: form.golfInfo.value,
+      썸네일: JSON.parse(form.imageList1.value),
+      상세이미지: JSON.parse(form.imageList2.value),
+      등록일: new Date().toISOString().substr(0, 10).replaceAll("-", "."),
+    };
+    const { 구분, 국가, 도시, 골프장명, 입회금, 담당자명, 연락처 } = formValue;
+    if (
+      !구분 ||
+      !국가 ||
+      !도시 ||
+      !골프장명 ||
+      !입회금 ||
+      !담당자명 ||
+      !연락처
+    ) {
+      formValue.필수입력필요 = true;
+    } else {
+      formValue.필수입력필요 = false;
+    }
+
+    return formValue;
+  };
+
+  const checkRequired = () => {
+    //const form = docuemnt.
+    const { 필수입력필요 } = formValue();
+
+    //필수 체크
+    if (필수입력필요) {
+      setSnackOpen(true);
+      console.log(formValue());
+      return true;
+    }
+  };
+
+  const onSubmit = (event) => {
+    if (checkRequired()) {
+      return;
+    }
+    console.log("submit");
+  };
 
   const handleChange = (event) => {
+    //국가 변경
     setAge(event.target.value);
   };
   return (
     <Box
       component="form"
+      id="addForm"
       sx={{
         ".no_basis": {
           flexBasis: "0 !important",
@@ -63,15 +128,16 @@ export default function GutterlessList() {
             </Typography>
           </ListItemText>
           <Box>
-            <RadioGroup row name="radio-type-1" defaultValue="a">
+            <RadioGroup row name="offerType" defaultValue="분양 매물">
               <FormControlLabel
-                value="a"
+                required
+                value="분양 매물"
                 control={<Radio color="green" />}
                 label="분양 매물"
                 sx={{ m: 0 }}
               />
               <FormControlLabel
-                value="b"
+                value="개인 매물"
                 control={<Radio color="green" />}
                 label="개인 매물"
                 sx={{ m: 0, ml: 2 }}
@@ -91,19 +157,19 @@ export default function GutterlessList() {
               <InputLabel id="demo-simple-select-label">국가 선택</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
-                id="demo-simple-select"
                 value={age}
                 label="국가 선택"
                 onChange={handleChange}
+                name="country"
                 sx={{ minWidth: "120px" }}
               >
-                <MenuItem value={1}>일본</MenuItem>
-                <MenuItem value={2}>중국</MenuItem>
-                <MenuItem value={3}>태국</MenuItem>
-                <MenuItem value={4}>필리핀</MenuItem>
-                <MenuItem value={5}>베트남</MenuItem>
-                <MenuItem value={6}>말레이시아</MenuItem>
-                <MenuItem value={7}>기타</MenuItem>
+                {tabArray.subTabArray.map((el, index) => {
+                  return (
+                    <MenuItem value={el} key={index}>
+                      {el}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Box>
@@ -116,11 +182,14 @@ export default function GutterlessList() {
             </Typography>
           </ListItemText>
           <Box>
-            <TextField
-              size="small"
-              fullWidth
-              placeholder="도시 또는 지역명 입력"
-            ></TextField>
+            <FormControl fullWidth>
+              <TextField
+                size="small"
+                fullWidth
+                placeholder="도시 또는 지역명 입력"
+                name="city"
+              ></TextField>
+            </FormControl>
           </Box>
         </ListItem>
         <ListItem disableGutters>
@@ -135,24 +204,11 @@ export default function GutterlessList() {
               size="small"
               fullWidth
               placeholder="골프장명 또는 회원권명 입력"
+              name="offerName"
             ></TextField>
           </Box>
         </ListItem>
-        <ListItem disableGutters>
-          <ListItemText>
-            입회금(VAT포함)
-            <Typography component="span" color="text.red">
-              *
-            </Typography>
-          </ListItemText>
-          <Box>
-            <TextField
-              size="small"
-              fullWidth
-              placeholder="골프장명 또는 회원권명 입력"
-            ></TextField>
-          </Box>
-        </ListItem>
+
         <ListItem disableGutters>
           <ListItemText>
             입회금(VAT포함)
@@ -165,6 +221,7 @@ export default function GutterlessList() {
               size="small"
               fullWidth
               placeholder="숫자만 입력. 예) 800, 1500등"
+              name="offerPrice"
               type="number"
               InputProps={{
                 endAdornment: (
@@ -181,17 +238,19 @@ export default function GutterlessList() {
           </Box>
         </ListItem>
         <ListItem disableGutters>
-          <ListItemText>물결표시(~) 여부</ListItemText>
+          <ListItemText sx={{ whiteSpace: "nowrap" }}>
+            물결표시(~) 여부
+          </ListItemText>
           <Box>
-            <RadioGroup row name="radio-type-2" defaultValue="a">
+            <RadioGroup row name="priceWave" defaultValue="true">
               <FormControlLabel
-                value="a"
+                value="true"
                 control={<Radio color="green" />}
                 label="있음"
                 sx={{ m: 0 }}
               />
               <FormControlLabel
-                value="b"
+                value="false"
                 control={<Radio color="green" />}
                 label="없음"
                 sx={{ m: 0, ml: 2 }}
@@ -219,6 +278,7 @@ export default function GutterlessList() {
             fullWidth
             multiline
             rows={7}
+            name="offerInfo"
             placeholder={`내용을 입력 하세요.
 ※ 입력 추천 정보
 1. 회원권 등급 : GOLD, VIP 등
@@ -230,7 +290,6 @@ export default function GutterlessList() {
         </ListItem>
       </List>
       <Divider />
-
       <List dense sx={{ px: 1 }}>
         <SubTitle>등록자 정보</SubTitle>
         <ListItem disableGutters>
@@ -240,6 +299,7 @@ export default function GutterlessList() {
               size="small"
               placeholder="업체명 입력"
               fullWidth
+              name="companyName"
             ></TextField>
           </Box>
         </ListItem>
@@ -255,6 +315,7 @@ export default function GutterlessList() {
               size="small"
               placeholder="이름 입력"
               fullWidth
+              name="userName"
             ></TextField>
           </Box>
         </ListItem>
@@ -270,13 +331,13 @@ export default function GutterlessList() {
               size="small"
               type="number"
               placeholder="숫자만 입력 예 01012345678"
+              name="userPhone"
               fullWidth
             ></TextField>
           </Box>
         </ListItem>
       </List>
       <Divider />
-
       <List dense sx={{ px: 1 }}>
         <SubTitle>골프장 정보 </SubTitle>
         <ListItem
@@ -293,6 +354,7 @@ export default function GutterlessList() {
             fullWidth
             multiline
             rows={6}
+            name="golfInfo"
             placeholder={`내용을 입력 하세요.
 ※ 입력 추천 정보
 1. 규모 : 18홀 72파 6,999야드 등
@@ -308,11 +370,12 @@ export default function GutterlessList() {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
+            gap: "0 !important",
           }}
         >
           <ListItemText className="no_basis">썸네일 이미지 등록</ListItemText>
           <Box sx={{ display: "flex" }}>
-            <ImageUpload />
+            <ImageUpload id="imageList1" />
           </Box>
         </ListItem>
 
@@ -322,18 +385,18 @@ export default function GutterlessList() {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
+            gap: "0 !important",
           }}
         >
           <ListItemText className="no_basis">
             상세 이미지 등록 (최대 5장 가능)
           </ListItemText>
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-            <ImageUpload max="5" />
+            <ImageUpload max="5" id="imageList2" />
           </Box>
         </ListItem>
       </List>
       <Divider />
-
       <Box sx={{ p: 1 }}>
         <Typography sx={{ fontSize: 14 }}>
           ※ XGOLF는 회원권 페이지에서 발생하는 사고 및 해당 게시물 내 회원 간
@@ -344,20 +407,40 @@ export default function GutterlessList() {
           관리자 권한으로 동의 없이 삭제 및 이용이 제한될 수 있습니다.
         </Typography>
       </Box>
-
       <Stack direction="row" spacing={1} sx={{ m: 1 }}>
+        <Preview
+          formValue={formValue}
+          checkRequired={checkRequired}
+          onSubmit={onSubmit}
+        />
+
         <Button
           fullWidth
+          color="green"
           variant="contained"
-          color="gray"
-          sx={{ flexBasis: "140px" }}
+          onClick={() => onSubmit()}
         >
-          미리보기
-        </Button>
-        <Button fullWidth color="green" variant="contained">
           동의 후 등록
         </Button>
       </Stack>
+
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={2000}
+        onClose={() => setSnackOpen(false)}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert
+          onClose={() => setSnackOpen(false)}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          필수 입력 사항을 적어주세요.
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

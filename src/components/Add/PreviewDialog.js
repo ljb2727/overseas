@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   Divider,
@@ -21,13 +20,38 @@ import { Autoplay, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import AlertDialogSlide from "components/detail/AlertDialogSlide";
-
-export default function Detail() {
-  const { id } = useParams();
-
-  const { offer, tabArray } = useSelector((state) => state);
-  const target = offer.find((e) => e.id === id);
+export default function PreviewDialog({ formValue, handleClose, onSubmit }) {
+  //const { id } = useParams();
+  // 구분: form.offerType.value,
+  // 국가: form.country.value,
+  // 도시: form.city.value,
+  // 골프장명: form.offerName.value,
+  // 입회금: form.offerPrice.value,
+  // 물결표시: form.priceWave.value,
+  // 회원권안내: form.offerInfo.value,
+  // 업체명: form.companyName.value,
+  // 담당자명: form.userName.value,
+  // 연락처: form.userPhone.value,
+  // 골프장소개: form.golfInfo.value,
+  // 썸네일: JSON.parse(form.imageList1.value),
+  // 상세이미지: JSON.parse(form.imageList2.value),
+  // 등록일: new Date().toISOString().substr(0, 10).replaceAll("-", "."),
+  const {
+    구분,
+    국가,
+    도시,
+    골프장명,
+    입회금,
+    물결표시,
+    회원권안내,
+    업체명,
+    담당자명,
+    연락처,
+    골프장소개,
+    썸네일,
+    상세이미지,
+    등록일,
+  } = formValue();
 
   const [favorite, setFavorite] = useState(false);
 
@@ -103,7 +127,7 @@ export default function Detail() {
           modules={[Pagination, Autoplay]}
           className="mySwiper"
         >
-          {target.img.map((e, i) => {
+          {상세이미지.map((e, i) => {
             return (
               <SwiperSlide key={i}>
                 <img src={e} alt={i} className="swiper-lazy" />
@@ -115,26 +139,24 @@ export default function Detail() {
         <Box sx={{ p: 1, position: "relative" }}>
           <Stack direction="column" spacing={0.5}>
             <div>
-              <Chip
-                label={`${target.country} ${target.region}`}
-                color="primary"
-                size="small"
-              />
+              <Chip label={`${국가} ${도시}`} color="primary" size="small" />
             </div>
             <Typography variant="body1" noWrap>
-              {target.label}
+              {골프장명}
             </Typography>
             <Typography variant="body1" color="text.blue">
-              {`${target.price}만원~`}
+              {`${입회금}만원`}
+              {물결표시 === "true" && "~"}
             </Typography>
 
             <Stack direction="row" justifyContent="space-between">
-              <Typography variant="body2">
+              {구분}
+              {/* <Typography variant="body2">
                 {target.personal
                   ? tabArray.mainTabArray[1]
                   : tabArray.mainTabArray[0]}
-              </Typography>
-              <Typography variant="body2">{`등록일 ${target.date}`}</Typography>
+              </Typography> */}
+              <Typography variant="body2">{`등록일 ${등록일}`}</Typography>
             </Stack>
           </Stack>
 
@@ -159,61 +181,56 @@ export default function Detail() {
           </Button>
         </Box>
         <Divider />
-        {target.info.골프장정보 && (
+        {골프장소개 && (
           <dl>
             <dt>
               <strong>골프장 정보</strong>
             </dt>
-            <dd
-              dangerouslySetInnerHTML={{ __html: target.info.골프장정보 }}
-            ></dd>
+            <dd>
+              <pre dangerouslySetInnerHTML={{ __html: 골프장소개 }}></pre>
+            </dd>
           </dl>
         )}
-        {target.info.회원권정보 && (
+        {회원권안내 && (
           <dl>
             <dt>
               <strong>회원권 정보</strong>
             </dt>
-            <dd
-              dangerouslySetInnerHTML={{ __html: target.info.회원권정보 }}
-            ></dd>
-          </dl>
-        )}
-        {target.info.등록자 && (
-          <dl>
-            <dt>
-              <strong>등록자 정보</strong>
-            </dt>
             <dd>
-              <ul className="user_info">
-                <li>
-                  <strong>담당자명</strong>
-                  <span>{target.info.등록자[0]}</span>
-                </li>
-                <li>
-                  <strong>연락처</strong>
-                  <a href={`tel:${target.info.등록자[1]}`}>
-                    {target.info.등록자[1]}
-                  </a>
-                </li>
-              </ul>
+              <pre dangerouslySetInnerHTML={{ __html: 회원권안내 }}></pre>
             </dd>
           </dl>
         )}
-        <AlertDialogSlide />
-        {/* <Box sx={{ pb: "44px" }}>
-          <Box sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
-            <Button
-              fullWidth
-              variant="contained"
-              color="green"
-              size="large"
-              sx={{ borderRadius: 0 }}
-            >
-              상담 문의
-            </Button>
-          </Box>
-        </Box> */}
+        <dl>
+          <dt>
+            <strong>등록자 정보</strong>
+          </dt>
+          <dd>
+            <ul className="user_info">
+              <li>
+                <strong>담당자명</strong>
+                <span>{담당자명}</span>
+              </li>
+              <li>
+                <strong>연락처</strong>
+                <a href={`tel:${연락처}`}>{연락처}</a>
+              </li>
+            </ul>
+          </dd>
+        </dl>
+        <Stack direction="row" spacing={1} sx={{ m: 1 }}>
+          <Button fullWidth onClick={() => handleClose()}>
+            수정
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color="green"
+            onClick={() => onSubmit()}
+          >
+            등록
+          </Button>
+        </Stack>
       </DetailBox>
     </>
   );

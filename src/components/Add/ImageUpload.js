@@ -42,13 +42,12 @@ function ImageBox({ src, onClickRemove }) {
     </>
   );
 }
-function ImageUpload({ max = 1 }) {
+function ImageUpload({ max = 1, id = "imageList" }) {
   const [imageList, setImageList] = useState([]);
 
   const onClickRemove = (src) => {
     const copyImageList = [...imageList];
     setImageList(copyImageList.filter((e) => src !== e));
-    //setImageList([]);
   };
   const onChange = (event) => {
     if (event.currentTarget.files?.[0]) {
@@ -64,6 +63,7 @@ function ImageUpload({ max = 1 }) {
 
   return (
     <>
+      <input type="hidden" id={id} value={JSON.stringify(imageList)} />
       {imageList.map((el, index) => {
         return <ImageBox src={el} key={index} onClickRemove={onClickRemove} />;
       })}
