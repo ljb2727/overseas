@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
@@ -25,11 +25,25 @@ import AlertDialogSlide from "components/detail/AlertDialogSlide";
 
 export default function Detail() {
   const { id } = useParams();
-
   const { offer, tabArray } = useSelector((state) => state);
   const target = offer.find((e) => e.id === id);
-
   const [favorite, setFavorite] = useState(false);
+
+  //최근본페이지 저장
+  useEffect(() => {
+    localStorage.getItem("xgolfViewHistory")
+      ? localStorage.getItem("xgolfViewHistory")
+      : localStorage.setItem("xgolfViewHistory", JSON.stringify([]));
+    const array = JSON.parse(localStorage.getItem("xgolfViewHistory"));
+
+    const idx = array.findIndex((e) => e === id);
+    console.log(idx);
+    if (idx >= 0) {
+      array.splice(idx, 1);
+    }
+    array.unshift(id);
+    localStorage.setItem("xgolfViewHistory", JSON.stringify(array));
+  }, []);
 
   const onChangeFavorite = (e) => {
     setFavorite((state) => !state);
