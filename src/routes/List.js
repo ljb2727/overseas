@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { Tabs, Tab, Box, styled, Chip, Stack, Typography } from "@mui/material";
+import {
+  Tabs,
+  Tab,
+  Box,
+  styled,
+  Chip,
+  Stack,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function List() {
@@ -148,6 +157,10 @@ export default function List() {
           return <Tab value={el} label={el} key={index} />;
         })}
       </Tabs>
+
+      <Box sx={{ display: "flex" }}>
+        <CircularProgress />
+      </Box>
 
       {copyOffer.length ? (
         copyOffer.map((el, index) => {
