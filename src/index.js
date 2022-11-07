@@ -10,7 +10,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <>
-      <CssBaseline />
       <Provider store={store}>
         <BrowserRouter>
           <App />
