@@ -19,6 +19,8 @@ export default function List() {
   const [copyOffer, setCopyOffer] = useState([...offer]);
   const [mainTab, setMainTab] = useState(mainTabArray[0]);
   const [subTab, setSubTab] = useState(subTabArray[0]);
+
+  const [loading, setLoading] = useState(true);
   const params = useParams();
 
   const navigate = useNavigate();
@@ -33,6 +35,12 @@ export default function List() {
     console.log("탭 이펙트");
     filterItem(mainTab, subTab);
   }, [mainTab, subTab]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
 
   const filterItem = (mainTab, subTab) => {
     console.log(`@@@${mainTab} ${subTab}`);
@@ -158,11 +166,19 @@ export default function List() {
         })}
       </Tabs>
 
-      <Box sx={{ display: "flex" }}>
-        <CircularProgress />
-      </Box>
-
-      {copyOffer.length ? (
+      {loading ? (
+        <Box
+          sx={{
+            position: "fixed",
+            transform: "translate(-50%,-50%)",
+            top: "50%",
+            left: "50%",
+            overflow: "hidden",
+          }}
+        >
+          <CircularProgress size={60} color="green" />
+        </Box>
+      ) : copyOffer.length ? (
         copyOffer.map((el, index) => {
           return (
             <Item
