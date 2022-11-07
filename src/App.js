@@ -11,7 +11,22 @@ import Add from "routes/Add";
 import { Container } from "@mui/material";
 
 function App() {
-  return <>text</>;
+  return (
+    <>
+      text
+      <CssBaseline />
+      <Container disableGutters maxWidth="sm">
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/list/:type" element={<List />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/add" element={<Add />} />
+          </Routes>
+        </ThemeProvider>
+      </Container>
+    </>
+  );
 }
 
 export default App;
