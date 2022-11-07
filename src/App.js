@@ -17,6 +17,7 @@ function App() {
       <CssBaseline />
       <Container disableGutters maxWidth="sm">
         <ThemeProvider theme={theme}>
+          <Main />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/list/:type" element={<List />} />
