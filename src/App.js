@@ -17,7 +17,7 @@ function App() {
       <Container disableGutters maxWidth="sm">
         <ThemeProvider theme={theme}>
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/main" element={<Main />} />
             <Route path="/list/:type" element={<List />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/add" element={<Add />} />
