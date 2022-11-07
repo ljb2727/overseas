@@ -13,11 +13,9 @@ import { Container } from "@mui/material";
 function App() {
   return (
     <>
-      text
       <CssBaseline />
       <Container disableGutters maxWidth="sm">
         <ThemeProvider theme={theme}>
-          <Main />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/list/:type" element={<List />} />
