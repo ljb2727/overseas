@@ -3,6 +3,12 @@ import offerList from "store/offerList";
 let offer = createSlice({
   name: "offerList",
   initialState: offerList,
+  reducers: {
+    changeOffer(state, action) {
+      console.log(action.payload);
+      return action.payload;
+    },
+  },
 });
 
 let tabArray = createSlice({
@@ -28,3 +34,5 @@ export default configureStore({
     tabArray: tabArray.reducer,
   },
 });
+
+export let { changeOffer } = offer.actions;

@@ -7,8 +7,12 @@ import SubTitle from "components/common/SubTitle";
 import XgolfViewHistory from "components/main/XgolfViewHistory";
 import { useNavigate } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
 function Main() {
   const navigate = useNavigate();
+  const { offer } = useSelector((state) => state);
+  console.log(offer);
   return (
     <>
       <Container maxWidth="sm" id="container">

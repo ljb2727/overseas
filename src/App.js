@@ -9,10 +9,11 @@ import List from "routes/List";
 import Detail from "routes/Detail";
 import Add from "routes/Add";
 import { Container } from "@mui/material";
-
+import Api from "store/api.js";
 function App() {
   return (
     <>
+      <Api />
       <CssBaseline />
       <Container disableGutters maxWidth="sm">
         <ThemeProvider theme={theme}>

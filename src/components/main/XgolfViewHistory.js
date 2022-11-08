@@ -39,7 +39,7 @@ export default function MainSlider() {
     for (const item of historyArray) {
       setArray.push(offer.find((e) => e.id === item));
     }
-    console.log(setArray);
+    //console.log(setArray);
   }
 
   return (

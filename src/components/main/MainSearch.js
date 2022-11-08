@@ -18,6 +18,8 @@ export default function Search() {
     });
   };
 
+  console.log(offer);
+
   return (
     <>
       <Box
