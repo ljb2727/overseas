@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { changeOffer } from "store/index.js";
+import { changeOffer, setJsonLoading } from "store/index.js";
 
 function Offer() {
   const dispatch = useDispatch();
@@ -33,7 +33,10 @@ function Offer() {
   }, []);
 
   useEffect(() => {
-    if (offers !== null) dispatch(changeOffer(offers));
+    if (offers !== null) {
+      dispatch(changeOffer(offers));
+      dispatch(setJsonLoading({ type: true }));
+    }
   }, [offers]);
 
   if (loading) return <div>로딩중..</div>;

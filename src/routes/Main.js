@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MainSearch from "components/main/MainSearch";
 import MainSlider from "components/main/MainSlider";
 import { Button, Stack, Link, Box } from "@mui/material";
@@ -6,10 +6,12 @@ import Container from "@mui/material/Container";
 import SubTitle from "components/common/SubTitle";
 import XgolfViewHistory from "components/main/XgolfViewHistory";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Main() {
   const navigate = useNavigate();
-
+  const { jsonLoading } = useSelector((state) => state);
+  console.log(jsonLoading);
   return (
     <>
       <Container maxWidth="sm" id="container">
@@ -37,7 +39,8 @@ function Main() {
         </Box>
 
         {/* 최근 본 회원권 */}
-        <XgolfViewHistory />
+
+        {jsonLoading && <XgolfViewHistory />}
 
         <Box className="section">
           <SubTitle>회원권 팔기</SubTitle>

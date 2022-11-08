@@ -1,9 +1,10 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import Hangul from "hangul-js";
-import offerList from "store/offerList";
+//import offerList from "store/offerList";
 let offer = createSlice({
   name: "offerList",
-  initialState: offerList,
+  //initialState: offerList,
+  initialState: [],
   reducers: {
     changeOffer(state, action) {
       const payload = action.payload.offerList;
@@ -13,6 +14,17 @@ let offer = createSlice({
         (e) => (e.commaPrice = Number(e.price).toLocaleString("ko-KR"))
       );
       return payload;
+    },
+  },
+});
+
+let jsonLoading = createSlice({
+  name: "jsonLoading",
+  //initialState: offerList,
+  initialState: false,
+  reducers: {
+    setJsonLoading(state, action) {
+      return action.payload.type;
     },
   },
 });
@@ -38,7 +50,9 @@ export default configureStore({
   reducer: {
     offer: offer.reducer,
     tabArray: tabArray.reducer,
+    jsonLoading: jsonLoading.reducer,
   },
 });
 
 export let { changeOffer } = offer.actions;
+export let { setJsonLoading } = jsonLoading.actions;
