@@ -11,14 +11,13 @@ import SearchIcon from "@mui/icons-material/Search";
 export default function Search() {
   const { offer } = useSelector((state) => state);
   const navigate = useNavigate();
+  console.log(offer);
 
   const filterOptions = (options, { inputValue }) => {
     return matchSorter(options, Hangul.disassemble(inputValue).join(""), {
       keys: ["chosung"],
     });
   };
-
-  console.log(offer);
 
   return (
     <>

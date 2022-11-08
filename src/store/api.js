@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { changeOffer } from "store/index.js";
@@ -21,7 +22,6 @@ function Offer() {
           .get("https://phpup.xgolf.com/outtour/item_list.php")
           .then((response) => {
             setOffers(response.data);
-            dispatch(changeOffer(response.data));
           });
       } catch (e) {
         setError(e);
@@ -31,6 +31,10 @@ function Offer() {
 
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    if (offers !== null) dispatch(changeOffer(offers));
+  }, [offers]);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
