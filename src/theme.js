@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#333333",
+      main: "#666666",
     },
 
     green: {
@@ -48,6 +48,17 @@ const theme = createTheme({
         // Name of the slot
         root: {
           fontSize: "1rem",
+        },
+      },
+    },
+
+    MuiTabs: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          "& .Mui-selected": {
+            fontWeight: "bold",
+          },
         },
       },
     },

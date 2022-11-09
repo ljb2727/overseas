@@ -7,31 +7,32 @@ import SubTitle from "components/common/SubTitle";
 import XgolfViewHistory from "components/main/XgolfViewHistory";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import TabMenu from "components/common/TabMenu";
 
 function Main() {
   const navigate = useNavigate();
   const { jsonLoading } = useSelector((state) => state);
 
-  console.log(jsonLoading);
   return (
     <>
       <Container maxWidth="sm" id="container">
         {/* 검색메뉴 */}
+        <TabMenu />
         <Box className="section">
           <Stack spacing={1}>
             <MainSearch />
-            <Stack direction="row" spacing={1}>
+            {/* <Stack direction="row" spacing={1}>
               <Button fullWidth onClick={() => navigate("/list/type1")}>
                 분양 매물
               </Button>
               <Button fullWidth onClick={() => navigate("/list/type2")}>
                 개인 매물
               </Button>
-            </Stack>
-            <Stack direction="row" spacing={1}>
+            </Stack> */}
+            {/* <Stack direction="row" spacing={1}>
               <Link href="#">#최근 본</Link>
               <Link href="#">#관심 등록한</Link>
-            </Stack>
+            </Stack> */}
           </Stack>
         </Box>
         <Box className="section">

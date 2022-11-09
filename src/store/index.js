@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import Hangul from "hangul-js";
+
 //import offerList from "store/offerList";
 let offer = createSlice({
   name: "offerList",
