@@ -5,12 +5,13 @@ import { Button, Stack, Link, Box } from "@mui/material";
 import Container from "@mui/material/Container";
 import SubTitle from "components/common/SubTitle";
 import XgolfViewHistory from "components/main/XgolfViewHistory";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Main() {
   const navigate = useNavigate();
   const { jsonLoading } = useSelector((state) => state);
+
   console.log(jsonLoading);
   return (
     <>

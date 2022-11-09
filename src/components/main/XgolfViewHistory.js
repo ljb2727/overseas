@@ -32,14 +32,18 @@ export default function MainSlider() {
   const [historyArray, setHistoryArray] = useState(
     JSON.parse(localStorage.getItem("xgolfViewHistory"))
   );
-  //console.log(offer);
-  //console.log(historyArray);
+
+  const offerId = offer.map((el) => el.id);
+  //없어진 아이디 삭제를 위해 현재 아이디와 히스토리 아이디 비교 후 중복값만 보유
+  const realArray = offerId.filter((item) => historyArray.includes(item));
   const setArray = [];
   if (historyArray !== null) {
-    for (const item of historyArray) {
+    console.log(realArray);
+    console.log(historyArray);
+    for (const item of realArray) {
       setArray.push(offer.find((e) => e.id === item));
     }
-    //console.log(setArray);
+    localStorage.setItem("xgolfViewHistory", JSON.stringify(realArray));
   }
 
   return (
