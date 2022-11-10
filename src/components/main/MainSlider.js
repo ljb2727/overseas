@@ -8,6 +8,7 @@ import { styled } from "@mui/material/styles";
 
 import { Chip, Typography, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CusSwiper = styled(Swiper)`
   background-color: white;
@@ -27,7 +28,10 @@ const CusSwiper = styled(Swiper)`
 `;
 
 export default function MainSlider() {
+  const { offer } = useSelector((state) => state);
   const navigation = useNavigate();
+
+  console.log(offer);
   return (
     <>
       <CusSwiper
@@ -41,23 +45,43 @@ export default function MainSlider() {
         modules={[Autoplay]}
         className="mySwiper"
       >
-        <SwiperSlide onClick={() => navigation("/detail/1")}>
-          <div className="img">
-            <img
-              src="https://image.xgolf.com/file/2022/1021/2022102152988021leesy.jpg/dims/resize/311x161"
-              alt=""
-            />
-          </div>
-          <Stack direction="column" spacing={0.5} sx={{ mt: 1 }}>
-            <div>
-              <Chip label="일본 오이타" color="primary" size="small" sx={{}} />
-            </div>
-            <Typography variant="body1">도쿄 윈저파크 컨트리클럽</Typography>
-            <Typography variant="body1" color="text.blue">
-              1,2000만원~
-            </Typography>
-          </Stack>
-        </SwiperSlide>
+        {offer
+          .filter((item) => item.best)
+          .map((el, index) => {
+            return (
+              <SwiperSlide
+                onClick={() => navigation(`/detail/${el.id}`)}
+                key={el.id}
+              >
+                <div className="img">
+                  <img src={`${el.img[0]}`} alt="" />
+                </div>
+                <Stack direction="column" spacing={0.5} sx={{ mt: 1 }}>
+                  <div>
+                    <Chip
+                      label={`${el.country} ${el.region}`}
+                      color="primary"
+                      size="small"
+                    />
+                  </div>
+                  <Typography
+                    variant="body1"
+                    sx={{ fontWeight: "bold" }}
+                  >{`${el.label}`}</Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.blue"
+                    sx={{ fontWeight: "bold" }}
+                  >
+                    {`${el.commaPrice}만원~`}
+                  </Typography>
+                  <Typography variant="body1" color="text.gray">
+                    {`${el.personal ? "개인" : "분양"}`}
+                  </Typography>
+                </Stack>
+              </SwiperSlide>
+            );
+          })}
       </CusSwiper>
     </>
   );

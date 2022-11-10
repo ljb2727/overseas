@@ -80,9 +80,19 @@ export default function MainSlider() {
                         size="small"
                       />
                     </div>
-                    <Typography variant="body1">{`${el.label}`}</Typography>
-                    <Typography variant="body1" color="text.blue">
+                    <Typography
+                      variant="body1"
+                      sx={{ fontWeight: "bold" }}
+                    >{`${el.label}`}</Typography>
+                    <Typography
+                      variant="body1"
+                      color="text.blue"
+                      sx={{ fontWeight: "bold" }}
+                    >
                       {`${el.commaPrice}만원~`}
+                    </Typography>
+                    <Typography variant="body1" color="text.gray">
+                      {`${el.personal ? "개인" : "분양"}`}
                     </Typography>
                   </Stack>
                 </SwiperSlide>
