@@ -14,10 +14,10 @@ import SearchList from "routes/SearchList";
 function App() {
   return (
     <>
-      <Api />
       <CssBaseline />
       <Container disableGutters maxWidth="sm">
         <ThemeProvider theme={theme}>
+          <Api />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/list/:type" element={<List />} />

@@ -3,6 +3,8 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { changeOffer, setJsonLoading } from "store/index.js";
 
+import NowLoading from "components/common/NowLoading";
+
 function Offer() {
   const dispatch = useDispatch();
   const [offers, setOffers] = useState(null);
@@ -44,7 +46,7 @@ function Offer() {
     }
   }, [offers]);
 
-  if (loading) return <div>로딩중..</div>;
+  if (loading) return <NowLoading />;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!offers) return null;
 }

@@ -38,15 +38,15 @@ export default function AlertDialogSlide() {
   };
   return (
     <div>
-      <Box sx={{ pb: "44px" }}>
-        <Box sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
+      <Box>
+        <Box sx={{ mx: "25px" }}>
           <Button
             onClick={onClickModalOpen}
             fullWidth
             variant="contained"
             color="green"
             size="large"
-            sx={{ borderRadius: 0 }}
+            sx={{ borderRadius: 2 }}
           >
             상담 문의
           </Button>
@@ -60,19 +60,28 @@ export default function AlertDialogSlide() {
       >
         <DialogTitle
           sx={{
-            p: 1,
+            padding: "20px 0 25px",
             fontWeight: "bold",
             textAlign: "center",
-            fontSize: "1rem",
+            fontSize: "18px",
+            lineHeight: 1,
           }}
         >
-          알림
+          회원권 문의
         </DialogTitle>
-        <DialogContent dividers={scroll === "paper"}>
-          <DialogContentText tabIndex={-1}>
-            회원권 문의
-            <br />
-            <br />
+        {/* <DialogContent dividers={scroll === "paper"}> */}
+        <DialogContent
+          sx={{
+            backgroundColor: "#efefef",
+            border: "1px solid #707070",
+            mx: "10px",
+            p: "25px !important",
+          }}
+        >
+          <DialogContentText
+            tabIndex={-1}
+            sx={{ color: "#000000", fontSize: "14px;" }}
+          >
             ▷문의 내용 회원권 : 퍼시픽 블루 골프&리조트 <br />
             입회금 : 880만원~ <br />
             <br />
@@ -85,19 +94,27 @@ export default function AlertDialogSlide() {
           </DialogContentText>
         </DialogContent>
         <strong
-          style={{ textAlign: "center", display: "block", paddingTop: "8px" }}
+          style={{
+            textAlign: "center",
+            display: "block",
+            paddingTop: "20px",
+            fontSize: "14px",
+          }}
         >
           위와 같이 발송 하시겠습니까?
         </strong>
         <DialogActions
           sx={{
             display: "flex",
+            p: "10px",
+            pt: "25px",
+
             "& button": {
               flexGrow: "1",
             },
           }}
         >
-          <Button variant="contained" color="gray" onClick={onClickModalClose}>
+          <Button color="green" onClick={onClickModalClose}>
             취소
           </Button>
           <Button

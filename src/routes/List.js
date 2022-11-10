@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import TabMenu from "components/common/TabMenu";
+import InfoText from "components/common/InfoText";
 export default function List() {
   const { offer, tabArray, jsonLoading } = useSelector((state) => state);
   const { mainTabArray, subTabArray } = tabArray;
@@ -102,6 +103,7 @@ export default function List() {
     index,
     label,
     price,
+    commaPrice,
     personal,
     country,
     region,
@@ -118,23 +120,14 @@ export default function List() {
           </Box>
 
           <Box className="text_box">
-            <Stack direction="column" spacing={0.5} sx={{ mt: 1 }}>
-              <div>
-                <Chip
-                  label={`${country} ${region}`}
-                  color="primary"
-                  size="small"
-                />
-              </div>
-              <Typography variant="body1" noWrap>
-                {label}
-              </Typography>
-              <Typography variant="body1" color="text.blue">
-                {`${price}만원~`}
-              </Typography>
-
-              {personal ? mainTabArray[1] : mainTabArray[0]}
-            </Stack>
+            {/* 상품텍스트 컴퍼넌트 */}
+            <InfoText
+              mt="7px"
+              country={country}
+              region={region}
+              label={label}
+              commaPrice={commaPrice}
+            />
           </Box>
         </Stack>
       </StyleItem>
@@ -206,6 +199,7 @@ export default function List() {
                   id={el.id}
                   label={el.label}
                   price={el.price}
+                  commaPrice={el.commaPrice}
                   personal={el.personal}
                   country={el.country}
                   region={el.region}

@@ -10,6 +10,8 @@ import { Chip, Typography, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import InfoText from "components/common/InfoText";
+
 const CusSwiper = styled(Swiper)`
   background-color: white;
   & .img {
@@ -48,6 +50,7 @@ export default function MainSlider() {
         {offer
           .filter((item) => item.best)
           .map((el, index) => {
+            const { country, region, label, commaPrice, personal } = el;
             return (
               <SwiperSlide
                 onClick={() => navigation(`/detail/${el.id}`)}
@@ -56,29 +59,16 @@ export default function MainSlider() {
                 <div className="img">
                   <img src={`${el.img[0]}`} alt="" />
                 </div>
-                <Stack direction="column" spacing={0.5} sx={{ mt: 1 }}>
-                  <div>
-                    <Chip
-                      label={`${el.country} ${el.region}`}
-                      color="primary"
-                      size="small"
-                    />
-                  </div>
-                  <Typography
-                    variant="body1"
-                    sx={{ fontWeight: "bold" }}
-                  >{`${el.label}`}</Typography>
-                  <Typography
-                    variant="body1"
-                    color="text.blue"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    {`${el.commaPrice}만원~`}
-                  </Typography>
-                  <Typography variant="body1" color="text.gray">
-                    {`${el.personal ? "개인" : "분양"}`}
-                  </Typography>
-                </Stack>
+
+                {/* 상품텍스트 컴퍼넌트 */}
+                <InfoText
+                  mt="15px"
+                  country={country}
+                  region={region}
+                  label={label}
+                  commaPrice={commaPrice}
+                  personal={personal}
+                />
               </SwiperSlide>
             );
           })}

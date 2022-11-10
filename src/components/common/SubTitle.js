@@ -7,7 +7,7 @@ export function SubTitle(props) {
       variant="subtitle1"
       sx={{
         fontWeight: "bold",
-        fontSize: "1rem",
+        fontSize: "20px",
         mb: "10px",
         lineHeight: "1",
       }}

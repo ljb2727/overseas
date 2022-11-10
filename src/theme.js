@@ -5,6 +5,10 @@ const theme = createTheme({
     primary: {
       main: "#666666",
     },
+    neutral: {
+      main: "#64748B",
+      contrastText: "#fff",
+    },
 
     green: {
       main: "#36ae37",
@@ -34,6 +38,7 @@ const theme = createTheme({
       green: "#36ae37",
       red: "#ff0000",
       gray: "#666666",
+      black: "#000000",
     },
 
     common: {

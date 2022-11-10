@@ -9,31 +9,47 @@ import { useNavigate } from "react-router-dom";
 export default function MainAppBar({ title = "해외 골프장 회원권" }) {
   const navigate = useNavigate();
   return (
-    <Box>
-      <AppBar
-        position="fixed"
-        color="white"
-        elevation={0}
-        sx={{ borderBottom: "1px solid #cccccc" }}
+    <>
+      <Box
+        sx={{
+          "& .MuiToolbar-root": {
+            minHeight: "49px",
+          },
+        }}
       >
-        <Toolbar variant="dense" sx={{ p: 0 }}>
-          <IconButton
-            size="small"
-            edge="start"
-            color="inherit"
-            onClick={() => navigate(-1)}
-          >
-            <ChevronLeftIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, textAlign: "center", pr: 4 }}
-          >
-            {title}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </Box>
+        <AppBar
+          position="fixed"
+          color="white"
+          elevation={0}
+          sx={{
+            borderBottom: "1px solid #cccccc",
+          }}
+        >
+          <Toolbar variant="dense" sx={{ p: 0 }}>
+            <IconButton
+              size="small"
+              edge="start"
+              color="inherit"
+              onClick={() => navigate(-1)}
+            >
+              <ChevronLeftIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{
+                flexGrow: 1,
+                textAlign: "center",
+                pr: 4,
+                fontWeight: "bold",
+              }}
+            >
+              {title}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Toolbar />
+      </Box>
+    </>
   );
 }

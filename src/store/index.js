@@ -45,7 +45,7 @@ let jsonLoading = createSlice({
 let tabArray = createSlice({
   name: "tabArray",
   initialState: {
-    mainTabArray: ["분양매물", "개인매물"],
+    mainTabArray: ["분양", "개인"],
     subTabArray: [
       "일본",
       "중국",
