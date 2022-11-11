@@ -7,6 +7,7 @@ const ImageBox = ({ src, onClickRemove }) => {
   return (
     <>
       <Box
+        className="item"
         sx={{
           flexGrow: "0 !important",
           width: "72px",
@@ -63,6 +64,7 @@ export default function MultipleImageUpload({ id, max = 5 }) {
 
   const handleImageUpload = (e) => {
     const fileArr = e.target.files;
+    console.log(fileArr);
     let fileURLs = [];
     let file;
     let filesLength = fileArr.length > max ? max : fileArr.length;
@@ -72,22 +74,45 @@ export default function MultipleImageUpload({ id, max = 5 }) {
       let reader = new FileReader();
       reader.onload = () => {
         fileURLs[i] = reader.result;
-        setDetailImgs([...fileURLs]);
+        console.log(detailImgs);
+        setDetailImgs([...detailImgs, ...fileURLs]);
       };
       reader.readAsDataURL(file);
     }
-    console.log(filesLength);
+    //console.log(filesLength);
   };
 
   useEffect(() => {
     if (detailImgs !== undefined) {
-      console.log(detailImgs);
+      //console.log(detailImgs);
     }
   }, [detailImgs]);
   return (
     <>
       <input type="hidden" id={id} value={JSON.stringify(detailImgs)} />
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "10px",
+          "& .item:first-of-type::after": {
+            content: '"대표 사진"',
+            display: "flex",
+            position: "absolute",
+            left: 0,
+            right: 0,
+            fontSize: "12px",
+            justifyContent: "center",
+            padding: "2px",
+            bottom: "-1px",
+            backgroundColor: "#000000",
+            color: "#ffffff",
+            overflow: "hidden",
+            borderBottomLeftRadius: "4px",
+            borderBottomRightRadius: "4px",
+          },
+        }}
+      >
         <Button
           component="label"
           sx={{
@@ -112,7 +137,9 @@ export default function MultipleImageUpload({ id, max = 5 }) {
           </span>
         </Button>
         {detailImgs !== undefined &&
-          detailImgs.map((el, idx) => <ImageBox key={idx} src={el} />)}
+          detailImgs.map((el, idx) => (
+            <ImageBox key={idx} src={el} onClickRemove={onClickRemove} />
+          ))}
       </Box>
     </>
   );
