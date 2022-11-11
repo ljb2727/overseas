@@ -26,7 +26,7 @@ import ImageUpload from "components/add/ImageUpload";
 import Preview from "components/add/Preview";
 import { useSelector } from "react-redux";
 import TabMenu from "components/common/TabMenu";
-
+import MultipleImageUpload from "components/add/MultipleImageUpload";
 export default function Add() {
   const [age, setAge] = useState("");
   const [snackOpen, setSnackOpen] = useState(false);
@@ -340,7 +340,7 @@ export default function Add() {
                   썸네일 이미지 등록
                 </ListItemText>
                 <Box sx={{ display: "flex" }}>
-                  <ImageUpload id="imageList1" />
+                  <MultipleImageUpload id="imageList1" max="1" />
                 </Box>
               </ListItem>
               <ListItem
@@ -356,7 +356,8 @@ export default function Add() {
                   상세 이미지 등록 (최대 5장 가능)
                 </ListItemText>
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-                  <ImageUpload max="5" id="imageList2" />
+                  {/* <ImageUpload max="5" id="imageList2" /> */}
+                  <MultipleImageUpload id="imageList2" />
                 </Box>
               </ListItem>
             </List>

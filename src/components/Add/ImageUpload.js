@@ -35,9 +35,9 @@ function ImageBox({ src, onClickRemove }) {
                 overflow: "hidden",
                 borderRadius: "100%",
               }}
+              onClick={() => onClickRemove(src)}
             />
           }
-          onClick={() => onClickRemove(src)}
         />
       </Box>
     </>
@@ -47,6 +47,7 @@ function ImageUpload({ max = 1, id = "imageList" }) {
   const [imageList, setImageList] = useState([]);
 
   const onClickRemove = (src) => {
+    console.log("remove");
     const copyImageList = [...imageList];
     setImageList(copyImageList.filter((e) => src !== e));
   };
