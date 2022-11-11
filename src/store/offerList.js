@@ -9,8 +9,8 @@ const offerList = [
     country: "일본",
     region: "이바라키",
     img: [
-      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
-      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+      "https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg",
+      "https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg",
     ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
@@ -36,8 +36,8 @@ const offerList = [
     country: "중국",
     region: "중국1",
     img: [
-      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
-      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+      "https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg",
+      "https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg",
     ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
@@ -62,9 +62,7 @@ const offerList = [
     personal: false,
     country: "태국",
     region: "태국 어쩌구",
-    img: [
-      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
-    ],
+    img: ["https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg"],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
     date: "2022.10.19",
@@ -89,8 +87,8 @@ const offerList = [
     country: "필리핀",
     region: "ㅇㄹㄹ",
     img: [
-      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
-      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+      "https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg",
+      "https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg",
     ],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
@@ -115,9 +113,7 @@ const offerList = [
     personal: true,
     country: "베트남",
     region: "베 ㅔ",
-    img: [
-      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
-    ],
+    img: ["https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg"],
     thumbnail:
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
     date: "2022.10.19",
@@ -249,7 +245,7 @@ const offerList = [
       "https://image.xgolf.com/file/2014/0407/20140407183403668060.jpg/dims/resize/330x330",
     ],
     thumbnail:
-      "https://image.xgolf.com/file/2022/1021/202210215309221leesy.jpg/dims/resize/311x161",
+      "https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg",
     date: "2022.10.19",
     info: {
       골프장정보: `1. 규모 : 18홀 72파 6,999야드 등<br/>

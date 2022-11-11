@@ -35,8 +35,10 @@ function Main() {
             </Stack> */}
           </Stack>
         </Box>
-        <Box className="section">
-          <SubTitle>추천 회원권</SubTitle>
+        <Box className="section" sx={{ margin: "50px 0 25px !important" }}>
+          <SubTitle fontSize="20px" ml="25px">
+            추천 회원권
+          </SubTitle>
           <MainSlider />
         </Box>
 

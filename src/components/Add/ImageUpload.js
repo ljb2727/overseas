@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Box, Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import Badge from "@mui/material/Badge";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
+import Badge from "@mui/material/Badge";
+import CancelIcon from "@mui/icons-material/Cancel";
+
+import AddPhotoAlternateSharpIcon from "@mui/icons-material/AddPhotoAlternateSharp";
 function ImageBox({ src, onClickRemove }) {
   return (
     <>
       <Box sx={{ position: "relative" }}>
         <Box
           sx={{
-            width: "100px",
-            height: "100px",
+            width: "72px",
+            height: "72px",
             "& img": {
               width: "100%",
               height: "100%",
@@ -28,7 +29,7 @@ function ImageBox({ src, onClickRemove }) {
             right: "6px",
           }}
           badgeContent={
-            <CancelOutlinedIcon
+            <CancelIcon
               sx={{
                 background: "#fff",
                 overflow: "hidden",
@@ -68,8 +69,16 @@ function ImageUpload({ max = 1, id = "imageList" }) {
         return <ImageBox src={el} key={index} onClickRemove={onClickRemove} />;
       })}
       {imageList.length < max && (
-        <Button component="label" sx={{ width: "100px", height: "100px" }}>
-          <AddIcon />
+        <Button
+          component="label"
+          sx={{
+            width: "72px",
+            height: "72px",
+            backgroundColor: "#f5f5f5",
+            border: "none",
+          }}
+        >
+          <AddPhotoAlternateSharpIcon color="gray" />
           <input
             hidden
             accept="image/*"

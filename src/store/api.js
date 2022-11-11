@@ -20,6 +20,7 @@ function Offer() {
         // loading 상태를 true 로 바꿉니다.
         setLoading(true);
         const response = await axios
+
           // .get("https://phpup.xgolf.com/outtour/item_list.php")
           // .then((response) => {
           //   setOffers(response.data.offerList);

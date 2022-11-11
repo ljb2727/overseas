@@ -3,7 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Autoplay, Pagination, Navigation } from "swiper";
+import "swiper/css/free-mode";
+import { Autoplay, Pagination, Navigation, FreeMode } from "swiper";
 import { styled } from "@mui/material/styles";
 
 import { Chip, Typography, Stack } from "@mui/material";
@@ -23,7 +24,7 @@ const CusSwiper = styled(Swiper)`
     border-radius: 5px;
     & img {
       width: 100%;
-      height: 40vw;
+      height: auto;
       vertical-align: top;
     }
   }
@@ -37,20 +38,22 @@ export default function MainSlider() {
   return (
     <>
       <CusSwiper
-        slidesPerView={1.125}
+        slidesPerView={"1.2"}
+        //freeMode={true}
+        centeredSlides={true}
         spaceBetween={10}
-        loop={true}
         // autoplay={{
         //   delay: 15000,
         //   disableOnInteraction: false,
         // }}
-        modules={[Autoplay]}
+        modules={[FreeMode, Autoplay]}
         className="mySwiper"
       >
         {offer
           .filter((item) => item.best)
           .map((el, index) => {
-            const { country, region, label, commaPrice, personal } = el;
+            console.log(el);
+            const { country, region, label, commaPrice, personal, wave } = el;
             return (
               <SwiperSlide
                 onClick={() => navigation(`/detail/${el.id}`)}
@@ -68,6 +71,7 @@ export default function MainSlider() {
                   label={label}
                   commaPrice={commaPrice}
                   personal={personal}
+                  wave={wave}
                 />
               </SwiperSlide>
             );

@@ -5,8 +5,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
-export default function MainAppBar({ title = "해외 골프장 회원권" }) {
+export default function MainAppBar({ title = "해외 골프장 회원권", type }) {
+  console.log(type);
   const navigate = useNavigate();
   return (
     <>
@@ -26,21 +28,24 @@ export default function MainAppBar({ title = "해외 골프장 회원권" }) {
           }}
         >
           <Toolbar variant="dense" sx={{ p: 0 }}>
-            <IconButton
-              size="small"
-              edge="start"
-              color="inherit"
-              onClick={() => navigate(-1)}
-            >
-              <ChevronLeftIcon />
-            </IconButton>
+            {type !== "hiddenIcon" && (
+              <IconButton
+                size="small"
+                edge="start"
+                color="inherit"
+                onClick={() => navigate(-1)}
+              >
+                <ChevronLeftIcon />
+              </IconButton>
+            )}
+
             <Typography
               variant="h6"
               component="div"
               sx={{
                 flexGrow: 1,
                 textAlign: "center",
-                pr: 4,
+                pr: type === "hiddenIcon" ? 0 : 4,
                 fontWeight: "bold",
               }}
             >

@@ -8,7 +8,7 @@ export default function TabMenu() {
   const navigate = useNavigate();
   const params = useParams();
   const { pathname } = useLocation();
-  const [value, setValue] = useState("검색");
+  const [value, setValue] = useState(false);
 
   const watchTab = () => {
     if (params.type === "type1") {

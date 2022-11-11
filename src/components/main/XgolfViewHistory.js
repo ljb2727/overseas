@@ -3,7 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Autoplay, Pagination, Navigation } from "swiper";
+import "swiper/css/free-mode";
+import { Autoplay, Pagination, Navigation, FreeMode } from "swiper";
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +22,7 @@ const CusSwiper = styled(Swiper)`
     border-radius: 5px;
     & img {
       width: 100%;
-      height: 40vw;
+      height: auto;
       vertical-align: top;
     }
   }
@@ -31,7 +32,9 @@ export default function MainSlider() {
   const { offer } = useSelector((store) => store);
   const navigation = useNavigate();
   const [historyArray, setHistoryArray] = useState(
-    JSON.parse(localStorage.getItem("xgolfViewHistory"))
+    localStorage.getItem("xgolfViewHistory") === null
+      ? []
+      : JSON.parse(localStorage.getItem("xgolfViewHistory"))
   );
 
   const offerId = offer.map((el) => el.id);
@@ -49,23 +52,26 @@ export default function MainSlider() {
 
   return (
     <>
-      {historyArray !== null && (
-        <Box className="section">
-          <SubTitle>최근 본 회원권</SubTitle>
+      {historyArray.length > 0 && (
+        <Box className="section" sx={{ margin: "50px 0 25px !important" }}>
+          <SubTitle fontSize="20px" ml="25px">
+            최근 본 회원권
+          </SubTitle>
 
           <CusSwiper
-            slidesPerView={1.125}
+            slidesPerView={"1.2"}
+            //freeMode={true}
+            centeredSlides={true}
             spaceBetween={10}
-            loop={true}
             // autoplay={{
             //   delay: 15000,
             //   disableOnInteraction: false,
             // }}
-            modules={[Autoplay]}
+            modules={[FreeMode, Autoplay]}
             className="mySwiper"
           >
             {setArray.map((el, index) => {
-              const { country, region, label, commaPrice, personal } = el;
+              const { country, region, label, commaPrice, personal, wave } = el;
               return (
                 <SwiperSlide
                   onClick={() => navigation(`/detail/${el.id}`)}
@@ -82,6 +88,7 @@ export default function MainSlider() {
                     label={label}
                     commaPrice={commaPrice}
                     personal={personal}
+                    wave={wave}
                   />
                 </SwiperSlide>
               );

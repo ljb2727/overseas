@@ -47,10 +47,6 @@ export default function List() {
     }
   };
 
-  const mainChange = (event, newValue) => {
-    setMainTab(newValue);
-  };
-
   const subChange = (event, newValue) => {
     setSubTab(newValue);
   };
@@ -69,8 +65,8 @@ export default function List() {
       position: relative;
       overflow: hidden;
       border-radius: 8px;
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
       & img {
         vertical-align: top;
         width: 100%;
@@ -103,6 +99,7 @@ export default function List() {
     index,
     label,
     price,
+    wave,
     commaPrice,
     personal,
     country,
@@ -126,6 +123,7 @@ export default function List() {
               country={country}
               region={region}
               label={label}
+              wave={wave}
               commaPrice={commaPrice}
             />
           </Box>
@@ -203,6 +201,7 @@ export default function List() {
                   personal={el.personal}
                   country={el.country}
                   region={el.region}
+                  wave={el.wave}
                   thumbnail={el.thumbnail}
                 />
               );

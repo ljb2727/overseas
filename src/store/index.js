@@ -1,7 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import Hangul from "hangul-js";
 
-//import offerList from "store/offerList";
 let offer = createSlice({
   name: "offerList",
   //initialState: offerList,
@@ -16,6 +15,18 @@ let offer = createSlice({
       );
       return payload;
     },
+  },
+});
+
+let defaultImage = createSlice({
+  name: "defaultImage",
+  initialState: {
+    thumbnail: [
+      "https://image.xgolf.com/file/2022/1109/202211096061821ljb2727.jpg",
+    ],
+    detail: [
+      "https://image.xgolf.com/file/2022/1109/202211096061823ljb2727.jpg",
+    ],
   },
 });
 
@@ -65,6 +76,7 @@ export default configureStore({
     tabArray: tabArray.reducer,
     jsonLoading: jsonLoading.reducer,
     bestList: bestList.reducer,
+    defaultImage: defaultImage.reducer,
   },
 });
 

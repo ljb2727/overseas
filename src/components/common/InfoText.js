@@ -9,6 +9,7 @@ export default function InfoText({
   commaPrice = "",
   personal,
   date,
+  wave,
 }) {
   return (
     <>
@@ -18,10 +19,11 @@ export default function InfoText({
         </div>
         <Typography
           variant="body1"
+          noWrap
           sx={{
             fontWeight: "bold",
             fontSize: "18px",
-            lineHeight: 1,
+            lineHeight: 1.2,
             mt: "10px !important",
           }}
         >{`${label}`}</Typography>
@@ -35,7 +37,8 @@ export default function InfoText({
             mt: "5px !important",
           }}
         >
-          {`${commaPrice}만원~`}
+          {`${commaPrice}만원`}
+          {wave && "~"}
         </Typography>
 
         <Stack

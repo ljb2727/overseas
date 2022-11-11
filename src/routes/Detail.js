@@ -59,7 +59,6 @@ export default function Detail() {
     font-size: 0.875rem;
 
     & .MuiTypography-root {
-      line-height: 1;
       margin-top: 5px;
     }
     & .MuiTypography-root.title {
@@ -134,7 +133,7 @@ export default function Detail() {
               );
             })}
           </Swiper>
-          <Box sx={{ p: "25px", position: "relative" }}>
+          <Box className="section" sx={{ position: "relative" }}>
             {/* 상품텍스트 컴퍼넌트 */}
             <InfoText
               country={target.country}
@@ -149,8 +148,8 @@ export default function Detail() {
               size="small"
               sx={{
                 position: "absolute",
-                top: 22,
-                right: 20,
+                top: 0,
+                right: 0,
                 fontSize: "0.875rem",
                 "& span": {
                   marginLeft: "0",
@@ -171,7 +170,7 @@ export default function Detail() {
             </Button>
           </Box>
           <Box className="divider"></Box>
-          <Box sx={{ p: "25px" }}>
+          <Box className="section">
             {target.info.골프장정보 && (
               <dl>
                 <dt>

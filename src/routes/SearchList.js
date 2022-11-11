@@ -80,6 +80,7 @@ export default function SearchList() {
     personal,
     country,
     region,
+    wave,
     thumbnail,
     commaPrice,
   }) {
@@ -101,6 +102,7 @@ export default function SearchList() {
               label={label}
               commaPrice={commaPrice}
               personal={personal}
+              wave={wave}
             />
           </Box>
         </Stack>
@@ -147,6 +149,7 @@ export default function SearchList() {
                   personal={el.personal}
                   country={el.country}
                   region={el.region}
+                  wave={el.wave}
                   thumbnail={el.thumbnail}
                 />
               );
