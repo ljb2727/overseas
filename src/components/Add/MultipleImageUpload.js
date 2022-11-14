@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Badge, Divider, Stack, IconButton, Box, Button } from "@mui/material";
+import { Badge, Snackbar, Alert, IconButton, Box, Button } from "@mui/material";
 
 import AddPhotoAlternateSharpIcon from "@mui/icons-material/AddPhotoAlternateSharp";
 import CancelIcon from "@mui/icons-material/Cancel";
-const ImageBox = ({ src, onClickRemove }) => {
+import CustomAlert from "components/common/CustomAlert";
+
+const ImageBox = ({ src, onClickRemove, max }) => {
   return (
     <>
       <Box
-        className="item"
+        className={`${Number(max) > 1 ? "multiple" : ""}`}
         sx={{
           flexGrow: "0 !important",
           width: "72px",
@@ -54,28 +56,36 @@ const ImageBox = ({ src, onClickRemove }) => {
   );
 };
 export default function MultipleImageUpload({ id, max = 5 }) {
-  const [detailImgs, setDetailImgs] = useState([]);
+  const [snackOpen, setSnackOpen] = useState(false);
 
+  max = Number(max);
+  const [detailImgs, setDetailImgs] = useState([]);
   const onClickRemove = (src) => {
     console.log("remove");
     const copyImageList = [...detailImgs];
     setDetailImgs(copyImageList.filter((e) => src !== e));
   };
+  const checkMax = (e) => {
+    if (detailImgs.length >= max) {
+      console.log("max");
+      setSnackOpen(true);
 
+      e.preventDefault();
+      return;
+    }
+  };
   const handleImageUpload = (e) => {
     const fileArr = e.target.files;
-    console.log(fileArr);
     let fileURLs = [];
     let file;
     let filesLength = fileArr.length > max ? max : fileArr.length;
-
     for (let i = 0; i < filesLength; i++) {
       file = fileArr[i];
       let reader = new FileReader();
       reader.onload = () => {
         fileURLs[i] = reader.result;
-        console.log(detailImgs);
-        setDetailImgs([...detailImgs, ...fileURLs]);
+        const sum = [...detailImgs, ...fileURLs];
+        setDetailImgs(sum.slice(0, max));
       };
       reader.readAsDataURL(file);
     }
@@ -87,6 +97,7 @@ export default function MultipleImageUpload({ id, max = 5 }) {
       //console.log(detailImgs);
     }
   }, [detailImgs]);
+
   return (
     <>
       <input type="hidden" id={id} value={JSON.stringify(detailImgs)} />
@@ -95,7 +106,7 @@ export default function MultipleImageUpload({ id, max = 5 }) {
           display: "flex",
           flexWrap: "wrap",
           gap: "10px",
-          "& .item:first-of-type::after": {
+          "& .multiple:first-of-type::after": {
             content: '"대표 사진"',
             display: "flex",
             position: "absolute",
@@ -123,12 +134,13 @@ export default function MultipleImageUpload({ id, max = 5 }) {
             backgroundColor: "#f5f5f5",
             border: "none",
           }}
+          onClick={(e) => checkMax(e)}
         >
           <AddPhotoAlternateSharpIcon color="gray" />
           <input
             hidden
             type="file"
-            multiple={max > 1 ? true : false}
+            multiple={Number(max) > 1 ? true : false}
             accept="image/jpg,image/png,image/jpeg,image/gif"
             onInput={handleImageUpload}
           />
@@ -138,9 +150,31 @@ export default function MultipleImageUpload({ id, max = 5 }) {
         </Button>
         {detailImgs !== undefined &&
           detailImgs.map((el, idx) => (
-            <ImageBox key={idx} src={el} onClickRemove={onClickRemove} />
+            <ImageBox
+              key={idx}
+              src={el}
+              max={max}
+              onClickRemove={onClickRemove}
+            />
           ))}
       </Box>
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={2000}
+        onClose={() => setSnackOpen(false)}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert
+          onClose={() => setSnackOpen(false)}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          최대 등록 이미지 수를 초과 했습니다.
+        </Alert>
+      </Snackbar>
     </>
   );
 }

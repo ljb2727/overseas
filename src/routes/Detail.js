@@ -27,13 +27,13 @@ import AppBar from "components/common/AppBar";
 import InfoText from "components/common/InfoText";
 export default function Detail() {
   const { id } = useParams();
-  const { offer, tabArray } = useSelector((state) => state);
+  const { offer, favoriteList } = useSelector((state) => state);
   const target = offer.find((e) => e.id === id);
   const [favorite, setFavorite] = useState(false);
 
-  console.log(target);
   //최근본페이지 저장
   useEffect(() => {
+    console.log(offer);
     localStorage.getItem("xgolfViewHistory")
       ? localStorage.getItem("xgolfViewHistory")
       : localStorage.setItem("xgolfViewHistory", JSON.stringify([]));
@@ -51,6 +51,14 @@ export default function Detail() {
     localStorage.setItem("xgolfViewHistory", JSON.stringify(array));
   }, []);
 
+  useEffect(() => {
+    console.log(favoriteList);
+    if (favoriteList.map((el) => String(el)).includes(id)) {
+      setFavorite(true);
+    } else {
+      setFavorite(false);
+    }
+  }, []);
   const onChangeFavorite = (e) => {
     setFavorite((state) => !state);
   };

@@ -8,7 +8,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 export default function MainAppBar({ title = "해외 골프장 회원권", type }) {
-  console.log(type);
   const navigate = useNavigate();
   return (
     <>

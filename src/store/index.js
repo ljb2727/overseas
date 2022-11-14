@@ -30,14 +30,12 @@ let defaultImage = createSlice({
   },
 });
 
-let bestList = createSlice({
-  name: "bestList",
+let favoriteList = createSlice({
+  name: "favoriteList",
   initialState: [],
   reducers: {
-    changeBestList(state, action) {
-      const payload = action.payload;
-      console.log(payload);
-      return payload;
+    setFavoriteList(state, action) {
+      return action.payload;
     },
   },
 });
@@ -75,11 +73,11 @@ export default configureStore({
     offer: offer.reducer,
     tabArray: tabArray.reducer,
     jsonLoading: jsonLoading.reducer,
-    bestList: bestList.reducer,
     defaultImage: defaultImage.reducer,
+    favoriteList: favoriteList.reducer,
   },
 });
 
 export let { changeOffer } = offer.actions;
 export let { setJsonLoading } = jsonLoading.actions;
-export let { changeBestList } = bestList.actions;
+export let { setFavoriteList } = favoriteList.actions;
