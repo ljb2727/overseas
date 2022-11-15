@@ -11,6 +11,9 @@ import Add from "routes/Add";
 import { Container } from "@mui/material";
 import { GetData, Test } from "store/api.js";
 import SearchList from "routes/SearchList";
+
+import { ErrorBoundary } from "react-error-boundary";
+
 function App() {
   return (
     <>
@@ -18,14 +21,16 @@ function App() {
       <Container disableGutters maxWidth="sm">
         <ThemeProvider theme={theme}>
           <GetData />
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/list/:type" element={<List />} />
-            <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/add" element={<Add />} />
-            <Route path="/search/:keyword" element={<SearchList />} />
-            <Route path="*" element={<Main />} />
-          </Routes>
+          <ErrorBoundary FallbackComponent={"error"}>
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/list/:type" element={<List />} />
+              <Route path="/detail/:id" element={<Detail />} />
+              <Route path="/add" element={<Add />} />
+              <Route path="/search/:keyword" element={<SearchList />} />
+              <Route path="*" element={<Main />} />
+            </Routes>
+          </ErrorBoundary>
         </ThemeProvider>
       </Container>
     </>

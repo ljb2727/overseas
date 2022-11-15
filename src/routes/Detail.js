@@ -27,13 +27,12 @@ import AppBar from "components/common/AppBar";
 import InfoText from "components/common/InfoText";
 export default function Detail() {
   const { id } = useParams();
-  const { offer, favoriteList } = useSelector((state) => state);
+  const { jsonLoading, offer, favoriteList } = useSelector((state) => state);
   const target = offer.find((e) => e.id === id);
   const [favorite, setFavorite] = useState(false);
 
   //최근본페이지 저장
   useEffect(() => {
-    console.log(offer);
     localStorage.getItem("xgolfViewHistory")
       ? localStorage.getItem("xgolfViewHistory")
       : localStorage.setItem("xgolfViewHistory", JSON.stringify([]));
@@ -47,21 +46,23 @@ export default function Detail() {
     if (array.length > 5) {
       array.pop();
     }
-
     localStorage.setItem("xgolfViewHistory", JSON.stringify(array));
   }, []);
 
   useEffect(() => {
-    console.log(favoriteList);
     if (favoriteList.map((el) => String(el)).includes(id)) {
       setFavorite(true);
     } else {
       setFavorite(false);
     }
-  }, []);
+  }, [favoriteList]);
   const onChangeFavorite = (e) => {
     setFavorite((state) => !state);
   };
+
+  useEffect(() => {
+    console.log(favorite);
+  }, [favorite]);
 
   const DetailBox = styled(Box)`
     font-size: 0.875rem;
@@ -119,122 +120,127 @@ export default function Detail() {
     <>
       <AppBar title="해외 회원권" />
       <Container maxWidth="sm" id="container">
-        <DetailBox>
-          <Swiper
-            pagination={{
-              type: "fraction",
-            }}
-            autoplay={{
-              delay: 12500,
-              disableOnInteraction: false,
-            }}
-            loop={true}
-            modules={[Pagination, Autoplay]}
-            className="mySwiper"
-          >
-            {target.img.map((el, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <img src={el} alt="" className="swiper-lazy" />
-                  <div className="swiper-lazy-preloader"></div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-          <Box className="section" sx={{ position: "relative" }}>
-            {/* 상품텍스트 컴퍼넌트 */}
-            <InfoText
-              country={target.country}
-              region={target.region}
-              label={target.label}
-              commaPrice={target.commaPrice}
-              personal={target.personal}
-              date={target.date}
-            />
-
-            <Button
-              size="small"
-              sx={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                fontSize: "0.875rem",
-                "& span": {
-                  marginLeft: "0",
-                },
+        {jsonLoading && (
+          <DetailBox>
+            <Swiper
+              pagination={{
+                type: "fraction",
               }}
-              variant="text"
-              endIcon={
-                favorite ? <FavoriteIcon color="red" /> : <FavoriteBorderIcon />
-              }
-              onClick={onChangeFavorite}
+              autoplay={{
+                delay: 12500,
+                disableOnInteraction: false,
+              }}
+              loop={true}
+              modules={[Pagination, Autoplay]}
+              className="mySwiper"
             >
-              <Typography
-                color="text.black"
-                sx={{ mt: "0 !important", fontSize: 14, pr: 0.4 }}
+              {target.img.map((el, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <img src={el} alt="" className="swiper-lazy" />
+                    <div className="swiper-lazy-preloader"></div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+            <Box className="section" sx={{ position: "relative" }}>
+              {/* 상품텍스트 컴퍼넌트 */}
+              <InfoText
+                country={target.country}
+                region={target.region}
+                label={target.label}
+                commaPrice={target.commaPrice}
+                personal={target.personal}
+                date={target.date}
+              />
+
+              <Button
+                size="small"
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  fontSize: "0.875rem",
+                  "& span": {
+                    marginLeft: "0",
+                  },
+                }}
+                variant="text"
+                endIcon={
+                  favorite ? (
+                    <FavoriteIcon color="red" />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )
+                }
+                onClick={onChangeFavorite}
               >
-                관심등록
-              </Typography>
-            </Button>
-          </Box>
-          <Box className="divider"></Box>
-          <Box className="section">
-            {target.info.골프장정보 && (
-              <dl>
-                <dt>
-                  <strong>골프장 정보</strong>
-                </dt>
-                <dd
-                  dangerouslySetInnerHTML={{ __html: target.info.골프장정보 }}
-                ></dd>
-              </dl>
-            )}
-            {target.info.회원권정보 && (
-              <dl>
-                <dt>
-                  <strong>회원권 정보</strong>
-                </dt>
-                <dd
-                  dangerouslySetInnerHTML={{ __html: target.info.회원권정보 }}
-                ></dd>
-              </dl>
-            )}
-            {target.info.등록자 && (
-              <dl>
-                <dt>
-                  <strong>등록자 정보</strong>
-                </dt>
-                <dd>
-                  <ul className="user_info">
-                    {target.info.등록자.업체명 && (
-                      <li>
-                        <strong>업체명</strong>
-                        <span>{target.info.등록자.업체명}</span>
-                      </li>
-                    )}
+                <Typography
+                  color="text.black"
+                  sx={{ mt: "0 !important", fontSize: 14, pr: 0.4 }}
+                >
+                  관심등록
+                </Typography>
+              </Button>
+            </Box>
+            <Box className="divider"></Box>
+            <Box className="section">
+              {target.info.골프장정보 && (
+                <dl>
+                  <dt>
+                    <strong>골프장 정보</strong>
+                  </dt>
+                  <dd
+                    dangerouslySetInnerHTML={{ __html: target.info.골프장정보 }}
+                  ></dd>
+                </dl>
+              )}
+              {target.info.회원권정보 && (
+                <dl>
+                  <dt>
+                    <strong>회원권 정보</strong>
+                  </dt>
+                  <dd
+                    dangerouslySetInnerHTML={{ __html: target.info.회원권정보 }}
+                  ></dd>
+                </dl>
+              )}
+              {target.info.등록자 && (
+                <dl>
+                  <dt>
+                    <strong>등록자 정보</strong>
+                  </dt>
+                  <dd>
+                    <ul className="user_info">
+                      {target.info.등록자.업체명 && (
+                        <li>
+                          <strong>업체명</strong>
+                          <span>{target.info.등록자.업체명}</span>
+                        </li>
+                      )}
 
-                    {target.info.등록자.담당자명 && (
-                      <li>
-                        <strong>담당자명</strong>
-                        <span>{target.info.등록자.담당자명}</span>
-                      </li>
-                    )}
+                      {target.info.등록자.담당자명 && (
+                        <li>
+                          <strong>담당자명</strong>
+                          <span>{target.info.등록자.담당자명}</span>
+                        </li>
+                      )}
 
-                    {target.info.등록자.연락처 && (
-                      <li>
-                        <strong>연락처</strong>
-                        <a href={`tel:${target.info.등록자.연락처}`}>
-                          {target.info.등록자.연락처}
-                        </a>
-                      </li>
-                    )}
-                  </ul>
-                </dd>
-              </dl>
-            )}
-          </Box>
-          <AlertDialogSlide />
-          {/* <Box sx={{ pb: "44px" }}>
+                      {target.info.등록자.연락처 && (
+                        <li>
+                          <strong>연락처</strong>
+                          <a href={`tel:${target.info.등록자.연락처}`}>
+                            {target.info.등록자.연락처}
+                          </a>
+                        </li>
+                      )}
+                    </ul>
+                  </dd>
+                </dl>
+              )}
+            </Box>
+            <AlertDialogSlide />
+            {/* <Box sx={{ pb: "44px" }}>
           <Box sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
             <Button
               fullWidth
@@ -247,7 +253,8 @@ export default function Detail() {
             </Button>
           </Box>
         </Box> */}
-        </DetailBox>
+          </DetailBox>
+        )}
       </Container>
     </>
   );
