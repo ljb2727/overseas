@@ -22,7 +22,7 @@ const CusSwiper = styled(Swiper)`
     border-radius: 5px;
     & img {
       width: 100%;
-      height: auto;
+      height: 51.45vw;
       vertical-align: top;
     }
   }

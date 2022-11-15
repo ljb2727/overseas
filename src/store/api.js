@@ -44,10 +44,10 @@ function GetData() {
           //   setOffers(response.data.offerList);
           // });
 
-          .get("http://localhost:3001/offerList")
+          .get("https://phpup.xgolf.com/outtour/item_list.php")
           .then((response) => {
             console.log(response);
-            setOffers(response.data);
+            setOffers(response.data.offerList);
           });
       } catch (e) {
         setError(e);
@@ -63,9 +63,9 @@ function GetData() {
         setOffers(null);
         setLoading(true);
         const response = await axios
-          .get("http://localhost:3001/favoriteLists")
+          .get("https://phpup.xgolf.com/outtour/item_list.php")
           .then((response) => {
-            setStoreFavorites(response.data);
+            setStoreFavorites(response.data.favoriteLists);
           });
       } catch (e) {
         setError(e);
