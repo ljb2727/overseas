@@ -6,6 +6,7 @@ import "./scss/style.scss";
 
 import Main from "routes/Main";
 import List from "routes/List";
+import Modify from "routes/Modify";
 import Detail from "routes/Detail";
 import Add from "routes/Add";
 import { Container } from "@mui/material";
@@ -27,6 +28,7 @@ function App() {
               <Route path="/list/:type" element={<List />} />
               <Route path="/detail/:id" element={<Detail />} />
               <Route path="/add" element={<Add />} />
+              <Route path="/modify/:id" element={<Modify />} />
               <Route path="/search/:keyword" element={<SearchList />} />
               <Route path="*" element={<Main />} />
             </Routes>
