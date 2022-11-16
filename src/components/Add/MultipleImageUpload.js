@@ -54,14 +54,13 @@ const ImageBox = ({ src, onClickRemove, max }) => {
     </>
   );
 };
-export default function MultipleImageUpload({ id, max = 5, img }) {
+export default function MultipleImageUpload({ id, max = 5, img = [] }) {
   const [snackOpen, setSnackOpen] = useState(false);
   max = Number(max);
   const [detailImgs, setDetailImgs] = useState([]);
-  console.log(img);
 
   useEffect(() => {
-    if (img !== undefined) {
+    if (img !== undefined || img !== null) {
       setDetailImgs([...img]);
     }
   }, [img]);

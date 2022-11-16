@@ -259,7 +259,7 @@ export default function Detail() {
               {/* 삭제 하기 */}
               <AlertDialogDelete />
             </Stack>
-            로그인 전 ⬆ / 로그인 후 ⬇
+            로그인 전 ⬇ / 로그인 후 ⬆
             <Stack direction="row" spacing={1} sx={{ mx: "25px" }}>
               <AlertDialogSlide />
             </Stack>

@@ -52,7 +52,6 @@ export default function MainSlider() {
         {offer
           .filter((item) => item.best)
           .map((el, index) => {
-            console.log(el);
             const { country, region, label, commaPrice, personal, wave } = el;
             return (
               <SwiperSlide
