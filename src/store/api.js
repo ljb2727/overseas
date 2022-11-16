@@ -38,17 +38,16 @@ function GetData() {
         // loading 상태를 true 로 바꿉니다.
         setLoading(true);
         const response = await axios
-
-          // .get("https://phpup.xgolf.com/outtour/item_list.php")
-          // .then((response) => {
-          //   setOffers(response.data.offerList);
-          // });
-
           .get("https://phpup.xgolf.com/outtour/item_list.php")
           .then((response) => {
-            console.log(response);
             setOffers(response.data.offerList);
           });
+
+        // .get("http://localhost:3001/offerList")
+        // .then((response) => {
+        //   console.log(response);
+        //   setOffers(response.data);
+        //});
       } catch (e) {
         setError(e);
       }
@@ -62,6 +61,11 @@ function GetData() {
         setError(null);
         setOffers(null);
         setLoading(true);
+        // const response = await axios
+        //   .get("http://localhost:3001/favoriteLists")
+        //   .then((response) => {
+        //     setStoreFavorites(response.data);
+        //   });
         const response = await axios
           .get("https://phpup.xgolf.com/outtour/item_list.php")
           .then((response) => {

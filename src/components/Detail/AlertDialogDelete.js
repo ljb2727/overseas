@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide() {
+export default function AlertDialogDelete() {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
 
@@ -26,15 +26,9 @@ export default function AlertDialogSlide() {
     setModalOpen(false);
   };
 
-  const [snack, setSnack] = React.useState(false);
-
-  const onClickSnackClose = (state) => {
-    setSnack(false);
-  };
-
-  const onClickSendMessage = () => {
+  const onClickDelete = () => {
     setModalOpen(false);
-    setSnack(true);
+    console.log("삭제요");
   };
   return (
     <>
@@ -46,7 +40,7 @@ export default function AlertDialogSlide() {
         size="large"
         sx={{ borderRadius: 2 }}
       >
-        상담 문의
+        삭제 하기
       </Button>
       <Dialog
         open={modalOpen}
@@ -63,42 +57,21 @@ export default function AlertDialogSlide() {
             lineHeight: 1,
           }}
         >
-          회원권 문의
+          알림
         </DialogTitle>
-        {/* <DialogContent dividers={scroll === "paper"}> */}
-        <DialogContent
-          sx={{
-            backgroundColor: "#efefef",
-            border: "1px solid #707070",
-            mx: "10px",
-            p: "25px !important",
-          }}
-        >
-          <DialogContentText
-            tabIndex={-1}
-            sx={{ color: "#000000", fontSize: "14px;" }}
-          >
-            ▷문의 내용 회원권 : 퍼시픽 블루 골프&리조트 <br />
-            입회금 : 880만원~ <br />
-            <br />
-            ▷문의자 정보 <br />
-            이름 : 조우성 <br />
-            휴대폰 : 01025965803
-            <br />
-            <br />
-            회원권 문의 드립니다.
-          </DialogContentText>
-        </DialogContent>
-        <strong
+
+        <p
           style={{
-            textAlign: "center",
+            textAlign: "left",
             display: "block",
             paddingTop: "20px",
             fontSize: "14px",
+            padding: "0 10px",
           }}
         >
-          위와 같이 발송 하시겠습니까?
-        </strong>
+          삭제 내용은 복구 되지 않습니다. <br />
+          삭제 하시겠습니까?
+        </p>
         <DialogActions
           sx={{
             display: "flex",
@@ -113,30 +86,11 @@ export default function AlertDialogSlide() {
           <Button color="green" onClick={onClickModalClose}>
             취소
           </Button>
-          <Button
-            variant="contained"
-            color="green"
-            onClick={onClickSendMessage}
-          >
+          <Button variant="contained" color="green" onClick={onClickDelete}>
             확인
           </Button>
         </DialogActions>
       </Dialog>
-
-      <Snackbar
-        open={snack}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        autoHideDuration={3000}
-        onClose={onClickSnackClose}
-      >
-        <Alert
-          onClose={onClickSnackClose}
-          severity="info"
-          sx={{ width: "100%" }}
-        >
-          해당 회원권의 상담 문의 접수한 내역이 있습니다. or 접수 완료
-        </Alert>
-      </Snackbar>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   Divider,
@@ -23,9 +23,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import AlertDialogSlide from "components/detail/AlertDialogSlide";
+import AlertDialogDelete from "components/detail/AlertDialogDelete";
 import AppBar from "components/common/AppBar";
 import InfoText from "components/common/InfoText";
 export default function Detail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { jsonLoading, offer, favoriteList } = useSelector((state) => state);
   const target = offer.find((e) => e.id === id);
@@ -63,6 +65,10 @@ export default function Detail() {
   useEffect(() => {
     console.log(favorite);
   }, [favorite]);
+
+  const onRemove = () => {
+    console.log(`${id} 삭제요`);
+  };
 
   const DetailBox = styled(Box)`
     font-size: 0.875rem;
@@ -239,7 +245,24 @@ export default function Detail() {
                 </dl>
               )}
             </Box>
-            <AlertDialogSlide />
+            <Stack direction="row" spacing={1} sx={{ mx: "25px" }}>
+              <Button
+                fullWidth
+                variant="outlined"
+                color="green"
+                size="large"
+                sx={{ borderRadius: 2 }}
+                onClick={() => navigate(`/modify/${id}`)}
+              >
+                수정 하기
+              </Button>
+              {/* 삭제 하기 */}
+              <AlertDialogDelete />
+            </Stack>
+            로그인 전 ⬆ / 로그인 후 ⬇
+            <Stack direction="row" spacing={1} sx={{ mx: "25px" }}>
+              <AlertDialogSlide />
+            </Stack>
             {/* <Box sx={{ pb: "44px" }}>
           <Box sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
             <Button

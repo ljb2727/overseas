@@ -27,20 +27,85 @@ import Preview from "components/add/Preview";
 import { useSelector } from "react-redux";
 import TabMenu from "components/common/TabMenu";
 import MultipleImageUpload from "components/add/MultipleImageUpload";
-import UseTarget from "components/common/UseTarget";
+import { useParams } from "react-router-dom";
+import AppBar from "components/common/AppBar";
 
 export default function Add() {
-  const [formCountry, setFormCountry] = useState("");
   const [snackOpen, setSnackOpen] = useState(false);
-  const { tabArray } = useSelector((state) => state);
-
-  const { defaultImage } = useSelector((state) => state);
+  const { tabArray, defaultImage, offer, jsonLoading } = useSelector(
+    (state) => state
+  );
   const { thumbnail, detail } = defaultImage;
 
-  console.log(UseTarget());
+  const { id } = useParams();
+  const target = offer.find((el) => el.id === id);
+
+  var form = document.getElementById("addForm");
+
+  const [inputs, setInputs] = useState({
+    offerType: "개인",
+    country: "",
+    city: "",
+    offerName: "",
+    offerPrice: "",
+    priceWave: "false",
+    offerInfo: "",
+    companyName: "",
+    userName: "",
+    userPhone: "",
+    golfInfo: "",
+    userImages: [],
+    userThumbnail: [],
+  });
+
+  const {
+    offerType,
+    country,
+    city,
+    offerName,
+    offerPrice,
+    priceWave,
+    offerInfo,
+    companyName,
+    userName,
+    userPhone,
+    golfInfo,
+    userImages,
+    userThumbnail,
+  } = inputs;
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    console.log(`${value} / ${name}`);
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  useEffect(() => {
+    console.log(target);
+    if (target !== undefined) {
+      setInputs({
+        ...inputs,
+        country: target.country,
+        offerType: target.personal ? "개인" : "분양",
+        city: target.region,
+        offerName: target.label,
+        offerPrice: target.price,
+        priceWave: target.wave.toLocaleUpperCase() === "Y" ? true : false,
+        offerInfo: target.info.회원권정보,
+        companyName: target.info.등록자.업체명,
+        userName: target.info.등록자.담당자명,
+        userPhone: target.info.등록자.연락처,
+        golfInfo: target.info.골프장정보,
+        userImages: target.img,
+        userThumbnail: target.thumbnail,
+      });
+    }
+  }, [jsonLoading]);
 
   const formValue = () => {
-    const form = document.getElementById("addForm");
     const formValue = {
       구분: form.offerType.value,
       국가: form.country.value,
@@ -98,16 +163,13 @@ export default function Add() {
       return;
     }
     console.log("submit");
+    console.log(formValue());
   };
 
-  const handleChange = (event) => {
-    //국가 변경
-    setFormCountry(event.target.value);
-  };
   return (
     <>
+      <AppBar title="해외 회원권" />
       <Container maxWidth="sm" id="container">
-        <TabMenu />
         <Box
           component="form"
           id="addForm"
@@ -135,7 +197,12 @@ export default function Add() {
               <SubTitle>회원권 정보</SubTitle>
               <ListItem disableGutters>
                 <Box>
-                  <RadioGroup row name="offerType" defaultValue="개인">
+                  <RadioGroup
+                    row
+                    name="offerType"
+                    value={offerType}
+                    onChange={onChange}
+                  >
                     <FormControlLabel
                       required
                       value="분양"
@@ -159,9 +226,9 @@ export default function Add() {
                       국가 선택(필수)
                     </InputLabel>
                     <Select
-                      value={formCountry}
+                      value={country}
                       label="국가 선택(필수)"
-                      onChange={handleChange}
+                      onChange={onChange}
                       name="country"
                       sx={{ minWidth: "120px" }}
                     >
@@ -184,6 +251,8 @@ export default function Add() {
                       fullWidth
                       label="도시 또는 지역명 입력(필수)"
                       name="city"
+                      onChange={onChange}
+                      value={city}
                     ></TextField>
                   </FormControl>
                 </Box>
@@ -195,6 +264,8 @@ export default function Add() {
                     fullWidth
                     label="골프장명 또는 회원권명 입력(필수)"
                     name="offerName"
+                    onChange={onChange}
+                    value={offerName}
                   ></TextField>
                 </Box>
               </ListItem>
@@ -206,6 +277,8 @@ export default function Add() {
                     label="입회금 숫자만 입력(필수) 예) 800"
                     name="offerPrice"
                     type="number"
+                    onChange={onChange}
+                    value={offerPrice}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="start">만원</InputAdornment>
@@ -226,7 +299,12 @@ export default function Add() {
                   입회금 물결 표시(~) 여부
                 </ListItemText>
                 <Box>
-                  <RadioGroup row name="priceWave" defaultValue="false">
+                  <RadioGroup
+                    row
+                    name="priceWave"
+                    onChange={onChange}
+                    value={priceWave}
+                  >
                     <FormControlLabel
                       value="true"
                       control={<Radio color="green" />}
@@ -256,6 +334,8 @@ export default function Add() {
                   multiline
                   rows={7}
                   name="offerInfo"
+                  onChange={onChange}
+                  value={offerInfo}
                   placeholder={`회원권 안내 내용을 입력 하세요.
 ※ 입력 추천 정보
 1. 회원권 등급 : GOLD, VIP 등
@@ -278,6 +358,8 @@ export default function Add() {
                     label="업체명 입력"
                     fullWidth
                     name="companyName"
+                    onChange={onChange}
+                    value={companyName}
                   ></TextField>
                 </Box>
               </ListItem>
@@ -288,6 +370,8 @@ export default function Add() {
                     label="이름 입력(필수)"
                     fullWidth
                     name="userName"
+                    onChange={onChange}
+                    value={userName}
                   ></TextField>
                 </Box>
               </ListItem>
@@ -299,6 +383,8 @@ export default function Add() {
                     label="숫자만 입력(필수)"
                     name="userPhone"
                     fullWidth
+                    onChange={onChange}
+                    value={userPhone}
                   ></TextField>
                 </Box>
               </ListItem>
@@ -322,6 +408,8 @@ export default function Add() {
                   multiline
                   rows={6}
                   name="golfInfo"
+                  onChange={onChange}
+                  value={golfInfo}
                   placeholder={`골프장 소개 내용을 입력 하세요.
 ※ 입력 추천 정보
 1. 규모 : 18홀 72파 6,999야드 등
@@ -343,7 +431,11 @@ export default function Add() {
                   썸네일 이미지 등록
                 </ListItemText>
                 <Box sx={{ display: "flex" }}>
-                  <MultipleImageUpload id="imageList1" max="1" />
+                  <MultipleImageUpload
+                    id="imageList1"
+                    max="1"
+                    img={userThumbnail}
+                  />
                 </Box>
               </ListItem>
               <ListItem
@@ -360,7 +452,7 @@ export default function Add() {
                 </ListItemText>
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
                   {/* <ImageUpload max="5" id="imageList2" /> */}
-                  <MultipleImageUpload id="imageList2" />
+                  <MultipleImageUpload id="imageList2" img={userImages} />
                 </Box>
               </ListItem>
             </List>
@@ -375,7 +467,7 @@ export default function Add() {
             </Typography>
           </Box>
 
-          <Stack direction="row" spacing={1} sx={{ m: 1 }}>
+          <Stack direction="row" spacing={1} sx={{ mx: "25px" }}>
             <Preview
               formValue={formValue}
               checkRequired={checkRequired}

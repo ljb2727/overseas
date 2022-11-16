@@ -213,7 +213,7 @@ export default function PreviewDialog({ formValue, handleClose, onSubmit }) {
               </dd>
             </dl>
           </Box>
-          <Stack direction="row" spacing={1} sx={{ m: 1 }}>
+          <Stack direction="row" spacing={1} sx={{ mx: "25px" }}>
             <Button
               fullWidth
               variant="outlined"

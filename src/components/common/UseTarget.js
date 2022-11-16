@@ -6,11 +6,10 @@ function Target() {
   const { offer, jsonLoading } = useSelector((state) => state);
   const { id } = useParams();
 
-  console.log(offer);
-
   const target = offer.find((el) => el.id === id);
-
-  return target;
+  if (jsonLoading) {
+    return target;
+  }
 }
 
 export default Target;

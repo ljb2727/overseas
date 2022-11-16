@@ -3,7 +3,6 @@ import { Badge, Snackbar, Alert, IconButton, Box, Button } from "@mui/material";
 
 import AddPhotoAlternateSharpIcon from "@mui/icons-material/AddPhotoAlternateSharp";
 import CancelIcon from "@mui/icons-material/Cancel";
-import CustomAlert from "components/common/CustomAlert";
 
 const ImageBox = ({ src, onClickRemove, max }) => {
   return (
@@ -55,11 +54,18 @@ const ImageBox = ({ src, onClickRemove, max }) => {
     </>
   );
 };
-export default function MultipleImageUpload({ id, max = 5 }) {
+export default function MultipleImageUpload({ id, max = 5, img }) {
   const [snackOpen, setSnackOpen] = useState(false);
-
   max = Number(max);
   const [detailImgs, setDetailImgs] = useState([]);
+  console.log(img);
+
+  useEffect(() => {
+    if (img !== undefined) {
+      setDetailImgs([...img]);
+    }
+  }, [img]);
+
   const onClickRemove = (src) => {
     console.log("remove");
     const copyImageList = [...detailImgs];
@@ -91,12 +97,6 @@ export default function MultipleImageUpload({ id, max = 5 }) {
     }
     //console.log(filesLength);
   };
-
-  useEffect(() => {
-    if (detailImgs !== undefined) {
-      //console.log(detailImgs);
-    }
-  }, [detailImgs]);
 
   return (
     <>
