@@ -18,7 +18,7 @@ export default function TabMenu() {
     } else if (pathname === "/add") {
       setValue("등록");
     } else {
-      setValue("검색");
+      setValue("메인");
     }
   };
 
@@ -34,7 +34,7 @@ export default function TabMenu() {
       case "개인":
         navigate("/list/type2");
         break;
-      case "검색":
+      case "메인":
         navigate("/");
         break;
       case "등록":
@@ -55,7 +55,7 @@ export default function TabMenu() {
         TabIndicatorProps={{ style: { transition: "none" } }}
         sx={{ borderBottom: "1px solid #ccc" }}
       >
-        <Tab value="검색" label="검색" />
+        <Tab value="메인" label="메인" />
         <Tab value="분양" label="분양" />
         <Tab value="개인" label="개인" />
         <Tab value="등록" label="등록" />

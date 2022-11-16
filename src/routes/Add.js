@@ -372,7 +372,7 @@ export default function Add() {
             </Typography>
           </Box>
 
-          <Stack direction="row" spacing={1} sx={{ m: 1 }}>
+          <Stack direction="row" spacing={1} sx={{ mx: "25px" }}>
             <Preview
               formValue={formValue}
               checkRequired={checkRequired}
